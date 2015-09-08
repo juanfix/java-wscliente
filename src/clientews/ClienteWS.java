@@ -14,6 +14,6 @@ public class ClienteWS {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here // Esta actualizando en GitHub jjaj
+        // TODO code application logic here // Esta actualizando en GitHub jj
     }
 }
