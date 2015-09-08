@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www2.simit.org.co/WSSimitCurso/WS_Simit_Curso?wdsl" uri="xml-resources/web-service-references/WS_Simit_Curso_wdsl/wsdl/www2.simit.org.co/WSSimitCurso/WS_Simit_Curso.wdsl.xml"/>
+    <system systemId="http://www2.simit.org.co/WSSimitCurso/WS_Simit_Curso?wsdl" uri="xml-resources/web-service-references/WS_Simit_Curso/wsdl/www2.simit.org.co/WSSimitCurso/WS_Simit_Curso.wsdl"/>
+    <system systemId="http://www2.simit.org.co:80/WSSimitCurso/WS_Simit_Curso?xsd=1" uri="xml-resources/web-service-references/WS_Simit_Curso/wsdl/www2.simit.org.co_80/WSSimitCurso/WS_Simit_Curso.xsd_1.xsd"/>
+</catalog>
