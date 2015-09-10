@@ -4,6 +4,7 @@ package clientews;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -347,15 +348,15 @@ String datos[];
         
         //   INICIO conexion al WS
         
-        datos=new String [22];
-        datos[0]=("1100100");
+        datos=new String [23];
+        datos[0]=("11001000");
         datos[1]=("9002852265");
         datos[2]=("1");
         datos[3]=("0");
         datos[4]=("000003");
         datos[5]=("127.0.0.1");
-        datos[6]=("20110727");
-        datos[7]=("20110727");
+        datos[6]=("20150910");
+        datos[7]=("20150910");
         datos[8]=("78456158");
         datos[9]=("1500");
         datos[10]=("1300");
@@ -365,13 +366,13 @@ String datos[];
         datos[14]=("1");
         datos[15]=("1");
         
-        
-        datos[16]=("1475");
-        datos[17]=("9999999114");
-        datos[18]=("");
-        datos[19]=("25899000");
-        datos[20]=("0");
-        datos[21]=("POLCA");
+        datos[16]=("20110405");
+        datos[17]=("1476");
+        datos[18]=("76001000000010729508");
+        datos[19]=("1548");
+        datos[20]=("25899000");
+        datos[21]=("1104054356541");
+        datos[22]=("PONAL");
         
         ObjectFactory instancia = new ObjectFactory(); // Instancia para crear objetos en general
         
@@ -394,9 +395,22 @@ String datos[];
         cursoCIA.setNumeroSecuencia(datos[14]);
         cursoCIA.setTipoIdentificacion(datos[15]);
         
+        CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
         
-        System.out.println (wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // POSIBLE METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
-        System.out.println (wsSimitCursoCia(cursoCIA).getFechaTransaccion());
+        comparendosCursoCIA.setFechaComparendo(datos[16]);
+        comparendosCursoCIA.setNumeroCertificado(datos[17]);
+        comparendosCursoCIA.setNumeroComparendo(datos[18]);
+        comparendosCursoCIA.setNumeroResolucion(datos[19]);
+        comparendosCursoCIA.setOrganismoTransito(datos[20]);
+        comparendosCursoCIA.setReferenciaDescuento(datos[21]);
+        comparendosCursoCIA.setTipoComparendo(datos[22]);
+        
+        cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
+        
+        //System.out.println (cursoCIA.getComparendos().get(0));
+        
+        System.out.println (wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
+        System.out.println (wsSimitCursoCia(cursoCIA).getNumeroSecuencia());
          
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
