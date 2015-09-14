@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientews;
+package clases;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -53,6 +53,31 @@ public class FechaHora extends JLabel{
        } 
     }); 
     timer.start(); 
+    }
+    
+    public String fechaActual() 
+    { 
+        calendario = new java.util.GregorianCalendar(); 
+
+        java.util.Date actual = new java.util.Date(); 
+        calendario.setTime(actual); 
+        dia = calendario.get(Calendar.DAY_OF_MONTH); 
+        mes = (calendario.get(Calendar.MONTH) + 1); 
+        año = calendario.get(Calendar.YEAR);  
+        return String.format("%02d%02d%02d", año, mes, dia); 
+
+    }
+    
+    public String horaActual() 
+    { 
+        calendario = new java.util.GregorianCalendar(); 
+        segundos = calendario.get(Calendar.SECOND); 
+
+        java.util.Date actual = new java.util.Date(); 
+        calendario.setTime(actual); 
+        hora = calendario.get(Calendar.HOUR_OF_DAY); 
+        minutos = calendario.get(Calendar.MINUTE); 
+        return String.format("%02d%02d", hora, minutos); 
     }
     
 }

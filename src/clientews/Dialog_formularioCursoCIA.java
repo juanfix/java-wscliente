@@ -1,6 +1,7 @@
 package clientews;
 
 
+import clases.FechaHora;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,30 +96,30 @@ String datos[];
         jLabel_direccionIP.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_direccionIP.setText("Dirección IP:");
         add(jLabel_direccionIP);
-        jLabel_direccionIP.setBounds(20, 90, 90, 18);
+        jLabel_direccionIP.setBounds(20, 550, 90, 18);
 
         jLabel_codigoCIA.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_codigoCIA.setText("Código CIA:");
         add(jLabel_codigoCIA);
-        jLabel_codigoCIA.setBounds(20, 130, 80, 18);
+        jLabel_codigoCIA.setBounds(20, 80, 80, 18);
 
         jLabel_ciudadCIA.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_ciudadCIA.setText("Ciudad CIA:");
         add(jLabel_ciudadCIA);
-        jLabel_ciudadCIA.setBounds(20, 170, 90, 18);
+        jLabel_ciudadCIA.setBounds(20, 120, 90, 18);
 
         jLabel_codigoSedeCIA.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_codigoSedeCIA.setText("Código de la sede CIA:");
         add(jLabel_codigoSedeCIA);
-        jLabel_codigoSedeCIA.setBounds(20, 210, 150, 18);
+        jLabel_codigoSedeCIA.setBounds(20, 160, 150, 18);
         add(jTextField_dirIP);
-        jTextField_dirIP.setBounds(240, 90, 331, 27);
+        jTextField_dirIP.setBounds(240, 550, 331, 27);
         add(jTextField_codigoCIA);
-        jTextField_codigoCIA.setBounds(240, 130, 331, 27);
+        jTextField_codigoCIA.setBounds(240, 80, 331, 27);
         add(jTextField_ciudadCIA);
-        jTextField_ciudadCIA.setBounds(240, 170, 331, 27);
+        jTextField_ciudadCIA.setBounds(240, 120, 331, 27);
         add(jTextField_codigoSedeCIA);
-        jTextField_codigoSedeCIA.setBounds(240, 210, 331, 27);
+        jTextField_codigoSedeCIA.setBounds(240, 160, 331, 27);
 
         jButton_aceptar.setBackground(new java.awt.Color(255, 204, 102));
         jButton_aceptar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -130,7 +131,7 @@ String datos[];
             }
         });
         add(jButton_aceptar);
-        jButton_aceptar.setBounds(100, 630, 90, 27);
+        jButton_aceptar.setBounds(110, 680, 90, 27);
 
         jButton_limpiar.setBackground(new java.awt.Color(255, 204, 102));
         jButton_limpiar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -142,7 +143,7 @@ String datos[];
             }
         });
         add(jButton_limpiar);
-        jButton_limpiar.setBounds(380, 630, 95, 27);
+        jButton_limpiar.setBounds(390, 680, 95, 27);
 
         jLabel_fecha.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_fecha.setText("Fecha:");
@@ -159,7 +160,7 @@ String datos[];
             }
         });
         add(jButton_cancelar);
-        jButton_cancelar.setBounds(240, 630, 96, 27);
+        jButton_cancelar.setBounds(250, 680, 96, 27);
 
         jLabel_hora.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_hora.setText("Hora:");
@@ -176,13 +177,13 @@ String datos[];
         add(jLabel_fecha_mostrar);
         jLabel_fecha_mostrar.setBounds(480, 30, 100, 20);
         add(jTextField_idFuncionario);
-        jTextField_idFuncionario.setBounds(240, 250, 331, 27);
+        jTextField_idFuncionario.setBounds(240, 200, 331, 27);
 
         jLabel_idFuncionario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_idFuncionario.setText("Identificación funcionario CIA:");
         jLabel_idFuncionario.setToolTipText("");
         add(jLabel_idFuncionario);
-        jLabel_idFuncionario.setBounds(20, 250, 210, 18);
+        jLabel_idFuncionario.setBounds(20, 200, 210, 18);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del curso"));
@@ -226,38 +227,36 @@ String datos[];
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel_horaCursoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(64, 64, 64)
-                                .addComponent(jTextField_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTextField_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel_horaCursoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_codCurso)
                     .addComponent(jTextField_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,7 +264,7 @@ String datos[];
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_fechaCurso)
                     .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_horaCursoInicio)
                     .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -277,11 +276,11 @@ String datos[];
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_idInstructor)
                     .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
 
         add(jPanel2);
-        jPanel2.setBounds(10, 390, 570, 220);
+        jPanel2.setBounds(10, 330, 570, 210);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del infractor"));
@@ -325,13 +324,13 @@ String datos[];
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_idInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_idInfractor1))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         add(jPanel3);
-        jPanel3.setBounds(10, 280, 570, 110);
+        jPanel3.setBounds(10, 230, 570, 100);
 
-        setSize(new java.awt.Dimension(611, 712));
+        setSize(new java.awt.Dimension(603, 751));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -341,92 +340,61 @@ String datos[];
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         setVisible(false);
         dispose();
+        JFrame_Principal user = new JFrame_Principal();
+        user.setVisible(true);
+        user.pack();
     }//GEN-LAST:event_closeDialog
 
     private void jButton_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_aceptarActionPerformed
         // TODO add your handling code here:
         
+        FechaHora fecha = new FechaHora();
+        
         //   INICIO conexion al WS
-        
-        datos=new String [23];
-        datos[0]=("11001000");
-        datos[1]=("9002852265");
-        datos[2]=("1");
-        datos[3]=("0");
-        datos[4]=("000003");
-        datos[5]=("127.0.0.1");
-        datos[6]=("20150910");
-        datos[7]=("20150910");
-        datos[8]=("78456158");
-        datos[9]=("1500");
-        datos[10]=("1300");
-        datos[11]=("1600");
-        datos[12]=("11348169");
-        datos[13]=("74598123");
-        datos[14]=("1");
-        datos[15]=("1");
-        
-        datos[16]=("20110405");
-        datos[17]=("1476");
-        datos[18]=("76001000000010729508");
-        datos[19]=("1548");
-        datos[20]=("25899000");
-        datos[21]=("1104054356541");
-        datos[22]=("PONAL");
         
         ObjectFactory instancia = new ObjectFactory(); // Instancia para crear objetos en general
         
         DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
         
-        cursoCIA.setCiudadCia(datos[0]);
-        cursoCIA.setCodigoCia(datos[1]);
-        cursoCIA.setCodigoCurso(datos[2]);
-        cursoCIA.setCodigoSedeCia(datos[3]);
-        cursoCIA.setCodigoTransaccion(datos[4]);
-        cursoCIA.setDireccionAdquiriente(datos[5]);
-        cursoCIA.setFechaRealizacionCurso(datos[6]);
-        cursoCIA.setFechaTransaccion(datos[7]);
-        cursoCIA.setFuncionarioRegistra(datos[8]);
-        cursoCIA.setHoraFinCurso(datos[9]);
-        cursoCIA.setHoraInicioCurso(datos[10]);
-        cursoCIA.setHoraTransaccion(datos[11]);
-        cursoCIA.setIdentificacionInfractor(datos[12]);
-        cursoCIA.setIdentificacionInstructor(datos[13]);
-        cursoCIA.setNumeroSecuencia(datos[14]);
-        cursoCIA.setTipoIdentificacion(datos[15]);
+        cursoCIA.setCiudadCia("11001000"); // Fijo
+        cursoCIA.setCodigoCia("9002852265"); // Fijo
+        cursoCIA.setCodigoCurso("1"); // Fijo
+        cursoCIA.setCodigoSedeCia("76834000"); // Fijo
+        cursoCIA.setCodigoTransaccion("000003"); // Fijo
+        cursoCIA.setDireccionAdquiriente("127.0.0.1");
+        cursoCIA.setFechaRealizacionCurso("20150914");
+        cursoCIA.setFechaTransaccion(fecha.fechaActual());
+        cursoCIA.setFuncionarioRegistra("78456159");
+        cursoCIA.setHoraFinCurso("1500");
+        cursoCIA.setHoraInicioCurso("1300");
+        cursoCIA.setHoraTransaccion(fecha.horaActual());
+        cursoCIA.setIdentificacionInfractor("11348162");
+        cursoCIA.setIdentificacionInstructor("66879056");
+        cursoCIA.setNumeroSecuencia("10");
+        cursoCIA.setTipoIdentificacion("1");
         
         CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
         
-        comparendosCursoCIA.setFechaComparendo(datos[16]);
-        comparendosCursoCIA.setNumeroCertificado(datos[17]);
-        comparendosCursoCIA.setNumeroComparendo(datos[18]);
-        comparendosCursoCIA.setNumeroResolucion(datos[19]);
-        comparendosCursoCIA.setOrganismoTransito(datos[20]);
-        comparendosCursoCIA.setReferenciaDescuento(datos[21]);
-        comparendosCursoCIA.setTipoComparendo(datos[22]);
+        comparendosCursoCIA.setFechaComparendo("20150914");
+        comparendosCursoCIA.setNumeroCertificado("1478");
+        comparendosCursoCIA.setNumeroComparendo("999999911445256");
+        comparendosCursoCIA.setNumeroResolucion("1548");
+        comparendosCursoCIA.setOrganismoTransito("25899000");
+        comparendosCursoCIA.setReferenciaDescuento("150911001478" + luhnCheck("150911001478"));
+        comparendosCursoCIA.setTipoComparendo("PONAL");
         
         cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
         
+         
+        System.out.println (luhnCheck("7992739871"));
         //System.out.println (cursoCIA.getComparendos().get(0));
         
-        System.out.println (wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
-        System.out.println (wsSimitCursoCia(cursoCIA).getNumeroSecuencia());
-         
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        WSSimitCursoCia envioCursoCIA = instancia.createWSSimitCursoCia(); // Instancia de intermediario entre la entrada de datos y el Web Service
-        
-        envioCursoCIA.setOe(cursoCIA);
-        
-        System.out.println (envioCursoCIA.getOe());
-        System.out.println (envioCursoCIA.oe);
-        
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        WSSimitCursoService accionEnvioCursoCIA = new WSSimitCursoService(); // INstancia del envio de los datos al Web Service
-        
-        //System.out.println (accionEnvioCursoCIA.getWSDLDocumentLocation());
-        //System.out.println (accionEnvioCursoCIA.getWSSimitCursoPort());
+        /*System.out.println ("Cod respuesta:  "+wsSimitCursoCia(cursoCIA).getCodigoRespuesta());
+        System.out.println ("Fecha transaccion:  "+wsSimitCursoCia(cursoCIA).getFechaTransaccion());
+        System.out.println ("Hora transaccion:  "+wsSimitCursoCia(cursoCIA).getHoraTransaccion());
+        System.out.println ("Num Autorizacion:  "+wsSimitCursoCia(cursoCIA).getNumAutorizacion());
+        System.out.println ("Mensaje respuesta del WS:  "+wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
+        System.out.println ("Num secuencia:  "+wsSimitCursoCia(cursoCIA).getNumeroSecuencia());*/
         
         //   FIN conexion al WS
         
@@ -575,9 +543,40 @@ String datos[];
     private javax.swing.JTextField jTextField_idInstructor;
     // End of variables declaration//GEN-END:variables
 
-    private static DatosSalidaCursoCia wsSimitCursoCia(clientews.DatosEntradaCursoCia oe) {
+    private static DatosSalidaCursoCia wsSimitCursoCia(clientews.DatosEntradaCursoCia oe) 
+    {
         clientews.WSSimitCursoService service = new clientews.WSSimitCursoService();
         clientews.WSSimitCurso port = service.getWSSimitCursoPort();
         return port.wsSimitCursoCia(oe);
     }
+    
+    public static int luhnCheck(String number) 
+    {
+        int s1 = 0, s2 = 0;
+        number += "0";
+        String reverse = new StringBuffer(number).reverse().toString();
+
+        for (int i = 0 ;i < reverse.length();i++) 
+        {
+            int digit = Character.digit(reverse.charAt(i), 10);
+
+            if(i % 2 == 0) 
+            { 
+                s1 += digit;
+            }
+            else 
+            {
+                s2 += 2 * digit;
+
+                if (digit >= 5) 
+                { 
+                    s2 -= 9; 
+                }
+            }
+        }
+  
+        return ((s1 + s2) * 9) % 10;
+        
+	}
+    
 }

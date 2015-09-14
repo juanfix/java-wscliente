@@ -4,18 +4,33 @@
  */
 package clientews;
 
+import clases.DataSource;
+import clases.FechaHora;
+import static clientews.Dialog_formularioCursoCIA.luhnCheck;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -58,7 +73,9 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         jTextField_rutaArchivo = new javax.swing.JTextField();
         jButton_cargarExcel = new javax.swing.JButton();
         jButton_cancelar = new javax.swing.JButton();
+        jLabel_idInfractor1 = new javax.swing.JLabel();
 
+        setTitle("Cargar archivo EXCEL");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -85,34 +102,44 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
             }
         });
 
+        jLabel_idInfractor1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_idInfractor1.setText("Ruta del archivo:");
+        jLabel_idInfractor1.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
-                .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125))
             .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_cargarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_idInfractor1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_cargarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_idInfractor1))
+                .addGap(32, 32, 32)
                 .addComponent(jButton_cargarExcel)
                 .addGap(18, 18, 18)
                 .addComponent(jButton_cancelar)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -121,6 +148,9 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         setVisible(false);
         dispose();
+        JFrame_Principal user = new JFrame_Principal();
+        user.setVisible(true);
+        user.pack();
     }//GEN-LAST:event_closeDialog
 
     private void jButton_cargarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cargarExcelActionPerformed
@@ -131,21 +161,30 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
                     if (archivo.getName().endsWith("xlsx")) {
                         ruta = archivo.getAbsolutePath();
                         jTextField_rutaArchivo.setText(ruta);
-                        try {
-                            captDatosExcelXlsx(ruta);
-                        } catch (IOException ex) {
-                            Logger.getLogger(Dialog_cargarExcel.class.getName()).log(Level.SEVERE, null, ex);
+                        int reply = JOptionPane.showConfirmDialog(null, "¿Esta seguro de enviar este archivo?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if (reply == JOptionPane.YES_OPTION)
+                        {
+                            try {
+                                captDatosExcelXlsx(ruta);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Dialog_cargarExcel.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                     }else if(archivo.getName().endsWith("xls")){
                         ruta = archivo.getAbsolutePath();
                         jTextField_rutaArchivo.setText(ruta);
-                        try {
+                        int reply = JOptionPane.showConfirmDialog(null, "¿Esta seguro de enviar este archivo?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if (reply == JOptionPane.YES_OPTION)
+                        {
+                            try {
                             captDatosExcelXls(ruta);
-                        } catch (IOException ex) {
-                            Logger.getLogger(Dialog_cargarExcel.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Dialog_cargarExcel.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
+                        
                     }else{
-                        JOptionPane.showMessageDialog(null,"Seleccionar un archivo excel con extencion XLSX ");
+                        JOptionPane.showMessageDialog(null,"Debe seleccionar un archivo excel con extensión XLSX", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -159,27 +198,14 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         user.pack();
     }//GEN-LAST:event_jButton_cancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Dialog_cargarExcel dialog = new Dialog_cargarExcel(new java.awt.Frame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+
     
     //////////////////////FUNCIONES/////////////////////////////////
     
     public void captDatosExcelXls(String rutaArchivo) throws FileNotFoundException, IOException {
         
+    FechaHora fecha = new FechaHora();
+    
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
     HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -213,7 +239,12 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
                 }
                 else
                 {
-                   columna.add(Double.toString(celda.getNumericCellValue()));
+                    String cellNum = Double.toString(celda.getNumericCellValue());
+                    StringTokenizer tokens = new StringTokenizer(cellNum, ".");
+                    while(tokens.hasMoreTokens())
+                    {
+                       columna.add(tokens.nextToken());
+                    }
                 }
                 System.out.println(celda.getNumericCellValue());
                 break;
@@ -242,6 +273,9 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     @SuppressWarnings("empty-statement")
     public void captDatosExcelXlsx(String rutaArchivo) throws IOException{
     
+    FechaHora fecha = new FechaHora();
+    DataSource datasource = new DataSource();
+
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
     XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -272,8 +306,14 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
                 if( DateUtil.isCellDateFormatted(celda) ){
                    columna.add(date.format(celda.getDateCellValue()));
                   // System.out.println(celda.getDateCellValue());
-                }else{
-                  columna.add(Double.toString(celda.getNumericCellValue()));
+                }else
+                {
+                    String cellNum = Double.toString(celda.getNumericCellValue());
+                    StringTokenizer tokens = new StringTokenizer(cellNum, ".");
+                    while(tokens.hasMoreTokens())
+                    {
+                       columna.add(tokens.nextToken());
+                    }
                   //System.out.println(celda.getNumericCellValue());
                 }
                 break;
@@ -288,25 +328,138 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
             }
         }
         
-        Iterator<String> arrayC = columna.iterator();
+        //   INICIO conexion al WS
+        
+        ObjectFactory instancia = new ObjectFactory(); // Instancia para crear objetos en general
+        
+        DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
+        
+        cursoCIA.setCiudadCia("11001000"); // Fijo
+        cursoCIA.setCodigoCia("9002852265"); // Fijo
+        cursoCIA.setCodigoCurso("1"); // Fijo
+        cursoCIA.setCodigoSedeCia("76834000"); // Fijo
+        cursoCIA.setCodigoTransaccion("000003"); // Fijo
+        cursoCIA.setDireccionAdquiriente("127.0.0.1");
+        cursoCIA.setFechaRealizacionCurso(columna.get(24));
+        cursoCIA.setFechaTransaccion(fecha.fechaActual());
+        cursoCIA.setFuncionarioRegistra(columna.get(10));
+        cursoCIA.setHoraFinCurso(columna.get(26));
+        cursoCIA.setHoraInicioCurso(columna.get(25));
+        cursoCIA.setHoraTransaccion(fecha.horaActual());
+        cursoCIA.setIdentificacionInfractor(columna.get(12));
+        cursoCIA.setIdentificacionInstructor(columna.get(28));
+        cursoCIA.setNumeroSecuencia(columna.get(27));
+        cursoCIA.setTipoIdentificacion("1"); // generar EXCEL
+        
+        CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
+        
+        comparendosCursoCIA.setFechaComparendo("20150914"); // generar EXCEL
+        comparendosCursoCIA.setNumeroCertificado("1478");
+        comparendosCursoCIA.setNumeroComparendo("999999911445256");
+        comparendosCursoCIA.setNumeroResolucion("1548");
+        comparendosCursoCIA.setOrganismoTransito("25899000");
+        comparendosCursoCIA.setReferenciaDescuento("150911001478" + luhnCheck("150911001478"));
+        comparendosCursoCIA.setTipoComparendo("PONAL");
+        
+        cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
+        
+        DatosSalidaCursoCia datosReporte = instancia.createDatosSalidaCursoCia();
+        
+        String mensajeEstado = "";
+        
+        if(wsSimitCursoCia(cursoCIA).getCodigoRespuesta().equals("0000"))
+        {
+            mensajeEstado = "OK";
+        }
+        else
+        {
+            mensajeEstado = "Error";
+        }
+              
+        datosReporte.setCodigoRespuesta(mensajeEstado);
+        datosReporte.setMensajeRespuesta(wsSimitCursoCia(cursoCIA).getMensajeRespuesta());
+        datosReporte.setNumAutorizacion(wsSimitCursoCia(cursoCIA).getNumAutorizacion());
+        datosReporte.setNumeroSecuencia(wsSimitCursoCia(cursoCIA).getNumeroSecuencia());
+        
+        agregarCursoReporte(datasource, datosReporte);
+        
+        /*System.out.println ("Cod respuesta:  "+wsSimitCursoCia(cursoCIA).getCodigoRespuesta());
+        System.out.println ("Fecha transaccion:  "+wsSimitCursoCia(cursoCIA).getFechaTransaccion());
+        System.out.println ("Hora transaccion:  "+wsSimitCursoCia(cursoCIA).getHoraTransaccion());
+        System.out.println ("Num Autorizacion:  "+wsSimitCursoCia(cursoCIA).getNumAutorizacion());
+        System.out.println ("Mensaje respuesta del WS:  "+wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
+        System.out.println ("Num secuencia:  "+wsSimitCursoCia(cursoCIA).getNumeroSecuencia());*/
+        
+        //   FIN conexion al WS
+        
+        /*Iterator<String> arrayC = columna.iterator();
+        
+        int cont = 1;
         
         while (arrayC.hasNext()) 
         {
             String next = arrayC.next();
-            System.out.println(next);
-        } 
+            System.out.println("Valor "+cont+": "+next);
+            cont ++;
+        } */
         
         columna.clear();
 
     }
-
+generarReporte(5, datasource);
     // cerramos el libro excel
     workbook.close();
+    }
+    
+    //////////// INSTANCIA DEL REPORTE /////////////////
+    
+    public void agregarCursoReporte(DataSource datasource, DatosSalidaCursoCia cursoCIA)
+    {
+        datasource.addCursoSalida(cursoCIA);
+    }
+    
+    public void generarReporte(int cantidadRegistros, DataSource datasource)
+    {
+        InputStream inputStream = null;
+        JasperPrint jasperPrint= null;
+       
+        for(int i = 0; i<=cantidadRegistros; i++){
+           
+            /*DatosSalidaCursoCia asist;
+            asist = new Asistentes(i, "AsistenteNombre de "+i,"AsistenteApellidos de "+i, "Asistente dni de "+i);
+            datasource.addCursoSalida(cursoCIA);*/
+           
+        }
+       
+       try {
+            inputStream = new FileInputStream ("src/reporte/estadoRegistroCursosCIA.jrxml");
+        } catch (FileNotFoundException ex) {
+           JOptionPane.showMessageDialog(null,"Error al leer el fichero de carga jasper report "+ex.getMessage());
+        }
+        
+        try{
+            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+            JasperViewer.viewReport(jasperPrint);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "src/reporte/reporte1.pdf");
+           
+          
+        }catch (JRException e){
+            JOptionPane.showMessageDialog(null,"Error al cargar fichero jrml jasper report "+e.getMessage());
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButton_cancelar;
     public javax.swing.JButton jButton_cargarExcel;
+    private javax.swing.JLabel jLabel_idInfractor1;
     private javax.swing.JTextField jTextField_rutaArchivo;
     // End of variables declaration//GEN-END:variables
+
+    private static DatosSalidaCursoCia wsSimitCursoCia(clientews.DatosEntradaCursoCia oe) {
+        clientews.WSSimitCursoService service = new clientews.WSSimitCursoService();
+        clientews.WSSimitCurso port = service.getWSSimitCursoPort();
+        return port.wsSimitCursoCia(oe);
+    }
 }
