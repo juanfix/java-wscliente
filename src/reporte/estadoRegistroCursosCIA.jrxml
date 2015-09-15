@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2098ef8-803f-4078-983d-67168cd359ab">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.0000000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="cod_respuesta" class="java.lang.String"/>
 	<field name="mensaje_respuesta" class="java.lang.String"/>
 	<field name="num_autorizacion" class="java.lang.String"/>
-	<field name="num_secuencia" class="java.lang.String"/>
+	<field name="num_comparendo" class="java.lang.String"/>
+	<field name="id_infractor" class="java.lang.String"/>
+	<field name="num_certificado" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="50" y="14" width="451" height="65" uuid="00ce5f40-09ea-4e53-bfe6-c6117b8c4523"/>
+				<reportElement x="55" y="14" width="451" height="65" uuid="00ce5f40-09ea-4e53-bfe6-c6117b8c4523"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="24"/>
+					<font fontName="Arial" size="22"/>
 				</textElement>
 				<text><![CDATA[Reporte del estado de los cursos CIA registrados]]></text>
 			</staticText>
@@ -24,28 +26,31 @@
 	<pageHeader>
 		<band height="53" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="389" y="5" width="166" height="20" uuid="fdef2de6-f6a4-46e6-9363-ddf9cc69c223"/>
+				<reportElement x="399" y="0" width="155" height="20" uuid="fdef2de6-f6a4-46e6-9363-ddf9cc69c223"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="354" y="5" width="35" height="20" uuid="85ef1668-e8fb-4d05-a3e2-815c92c725b9"/>
+				<reportElement x="364" y="0" width="35" height="20" uuid="85ef1668-e8fb-4d05-a3e2-815c92c725b9"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="354" y="27" width="35" height="20" uuid="dcaa2aa8-0ab0-49c5-80c1-35aa621c0591"/>
+				<reportElement x="364" y="22" width="35" height="20" uuid="dcaa2aa8-0ab0-49c5-80c1-35aa621c0591"/>
 				<textElement>
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Hora:]]></text>
 			</staticText>
 			<textField pattern="h.mm a">
-				<reportElement x="389" y="27" width="100" height="20" uuid="bb60492f-e7f9-4931-ae01-a706c8db227c"/>
+				<reportElement x="399" y="22" width="100" height="20" uuid="bb60492f-e7f9-4931-ae01-a706c8db227c"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -53,64 +58,92 @@
 	<columnHeader>
 		<band height="43" splitType="Stretch">
 			<staticText>
-				<reportElement x="13" y="12" width="56" height="20" uuid="d0c72fd9-238c-44b7-a8c3-a8f7efab15a0"/>
+				<reportElement x="3" y="10" width="56" height="31" uuid="d0c72fd9-238c-44b7-a8c3-a8f7efab15a0"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="111" y="12" width="117" height="20" uuid="a7758410-092a-4f26-b52a-4c580dd0b431"/>
+				<reportElement x="81" y="10" width="100" height="31" uuid="a7758410-092a-4f26-b52a-4c580dd0b431"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mensaje de Respuesta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="12" width="123" height="20" uuid="2b959c58-16a2-438a-99b8-a8494f821479"/>
+				<reportElement x="208" y="10" width="100" height="31" uuid="2b959c58-16a2-438a-99b8-a8494f821479"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Número de autorización]]></text>
+				<text><![CDATA[Núm. de autorización]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="434" y="12" width="110" height="20" uuid="4c1f2cb8-b89c-4591-a5bc-d35c09613c61"/>
+				<reportElement x="311" y="10" width="100" height="31" uuid="4c1f2cb8-b89c-4591-a5bc-d35c09613c61"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Número de secuencia]]></text>
+				<text><![CDATA[Núm de comparendo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="10" width="71" height="31" uuid="5563e9dd-3a77-4c41-b061-35c4253f5bc6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identificación del infractor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="10" width="66" height="31" uuid="7e94faf7-de91-465d-83a2-03c90d6f7f38"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Núm de certificado]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="67" splitType="Stretch">
 			<textField>
-				<reportElement x="13" y="7" width="56" height="20" uuid="a9d28943-cbf3-4191-a270-7807d6ed67a6"/>
+				<reportElement x="3" y="7" width="56" height="20" uuid="a9d28943-cbf3-4191-a270-7807d6ed67a6"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cod_respuesta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="7" width="161" height="50" uuid="3a1c35ba-836d-4551-80a5-be8750c3718e"/>
+				<reportElement x="61" y="7" width="144" height="50" uuid="3a1c35ba-836d-4551-80a5-be8750c3718e"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mensaje_respuesta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="266" y="7" width="143" height="20" uuid="4305d548-fa9f-4832-9838-0f4ac6fa39d9"/>
+				<reportElement x="208" y="7" width="100" height="20" uuid="4305d548-fa9f-4832-9838-0f4ac6fa39d9"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{num_autorizacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="434" y="7" width="110" height="20" uuid="76549579-11c5-4377-b7a3-1ceba1fdea21"/>
+				<reportElement x="311" y="7" width="100" height="20" uuid="76549579-11c5-4377-b7a3-1ceba1fdea21"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{num_secuencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{num_comparendo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="7" width="71" height="20" uuid="2fc37b1a-d09f-4795-8b31-f93f4b4596fb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_infractor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="7" width="66" height="20" uuid="704281f7-d34f-4500-bea9-cf24397b35e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{num_certificado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -120,7 +153,7 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField>
-				<reportElement x="228" y="34" width="100" height="20" uuid="01079e99-489e-4923-a0bc-a664f5a2d63d"/>
+				<reportElement x="231" y="34" width="100" height="20" uuid="01079e99-489e-4923-a0bc-a664f5a2d63d"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>

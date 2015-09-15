@@ -4,6 +4,8 @@
  */
 package clases;
 
+import clientews.CursoComparendo;
+import clientews.DatosEntradaCursoCia;
 import clientews.DatosSalidaCursoCia;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ import net.sf.jasperreports.engine.JRField;
 public class DataSource implements JRDataSource{
     
     private List<DatosSalidaCursoCia> listaCursos = new ArrayList<DatosSalidaCursoCia>();
+    private List<DatosEntradaCursoCia> otrosDatosCursoCIA = new ArrayList<DatosEntradaCursoCia>();
+    private List<CursoComparendo> otrosDatosCursoComparendo = new ArrayList<CursoComparendo>();
     private int indiceCursoActual = -1;
   
     @Override
@@ -25,17 +29,16 @@ public class DataSource implements JRDataSource{
        return ++indiceCursoActual < listaCursos.size();
     }
   
-    public void addCursoSalida(DatosSalidaCursoCia cursoCIA){
+    public void addCursoSalida(DatosSalidaCursoCia cursoCIA, DatosEntradaCursoCia otrosDatosCursoCIA, CursoComparendo otrosDatosCursoComparendo){
 
         this.listaCursos.add(cursoCIA);
-
+        this.otrosDatosCursoCIA.add(otrosDatosCursoCIA);
+        this.otrosDatosCursoComparendo.add(otrosDatosCursoComparendo);
     }
 
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
        Object valor = null;
-       
-       System.out.println ("Name del jrf: "+jrf.getName());
        
         if ("cod_respuesta".equals(jrf.getName())){
 
@@ -45,18 +48,24 @@ public class DataSource implements JRDataSource{
         else if ("mensaje_respuesta".equals(jrf.getName())){
 
             valor = listaCursos.get(indiceCursoActual).getMensajeRespuesta();
-            System.out.println ("valor mensaje respuesta:  "+listaCursos.get(indiceCursoActual).getHoraTransaccion());
         }
         else if ("num_autorizacion".equals(jrf.getName())){
 
             valor = listaCursos.get(indiceCursoActual).getNumAutorizacion();
 
         }
-        else if ("num_secuencia".equals(jrf.getName())){
-            valor = listaCursos.get(indiceCursoActual).getNumeroSecuencia();
+        else if ("id_infractor".equals(jrf.getName())){
+            valor = otrosDatosCursoCIA.get(indiceCursoActual).getIdentificacionInfractor();
+            //valor = id_infractor;
         }
-        
-        System.out.println ("valor "+valor);
+        else if ("num_comparendo".equals(jrf.getName())){
+            valor = otrosDatosCursoComparendo.get(indiceCursoActual).getNumeroComparendo();
+            //valor = num_comparendo;
+        }
+        else if ("num_certificado".equals(jrf.getName())){
+             valor = otrosDatosCursoComparendo.get(indiceCursoActual).getNumeroCertificado();
+            //valor = num_certificado;
+        }
         
         return valor;
     }

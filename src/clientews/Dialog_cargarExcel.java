@@ -275,6 +275,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     
     FechaHora fecha = new FechaHora();
     DataSource datasource = new DataSource();
+    DateFormat formatter;
 
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
@@ -349,18 +350,37 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         cursoCIA.setIdentificacionInfractor(columna.get(12));
         cursoCIA.setIdentificacionInstructor(columna.get(28));
         cursoCIA.setNumeroSecuencia(columna.get(27));
-        cursoCIA.setTipoIdentificacion("1"); // generar EXCEL
+        cursoCIA.setTipoIdentificacion(columna.get(11));
         
         CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
         
-        comparendosCursoCIA.setFechaComparendo("20150914"); // generar EXCEL
-        comparendosCursoCIA.setNumeroCertificado("1478");
-        comparendosCursoCIA.setNumeroComparendo("999999911445256");
-        comparendosCursoCIA.setNumeroResolucion("1548");
-        comparendosCursoCIA.setOrganismoTransito("25899000");
-        comparendosCursoCIA.setReferenciaDescuento("150911001478" + luhnCheck("150911001478"));
-        comparendosCursoCIA.setTipoComparendo("PONAL");
+        String nuevaFecha = fecha.fechaActual().substring(2,8);
         
+        /////////////// PONER CEROS A LA IZQUIERDA EN NUMERO REFERENCIA DESCUENTO (NUM_CERTIFICADO)///////////////////////
+        
+        String ceroNumCertificado = columna.get(27);
+        
+        if(columna.get(27).length() != 6)
+        {
+            for(int i=0 ; i < (6-columna.get(27).length()) ; i++)
+            {
+                ceroNumCertificado = "0" + ceroNumCertificado;
+            }
+        }
+        
+        String numeroReferenciaDescuento = nuevaFecha + ceroNumCertificado;
+        numeroReferenciaDescuento += luhnCheck(numeroReferenciaDescuento);
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        comparendosCursoCIA.setFechaComparendo("20150914"); // generar EXCEL
+        comparendosCursoCIA.setNumeroCertificado(columna.get(27));
+        comparendosCursoCIA.setNumeroComparendo(columna.get(13));
+        comparendosCursoCIA.setNumeroResolucion(columna.get(14));
+        comparendosCursoCIA.setOrganismoTransito(columna.get(15));
+        comparendosCursoCIA.setReferenciaDescuento(numeroReferenciaDescuento);
+        comparendosCursoCIA.setTipoComparendo("PONAL"); // generarExcel
+               
         cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
         
         DatosSalidaCursoCia datosReporte = instancia.createDatosSalidaCursoCia();
@@ -381,7 +401,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         datosReporte.setNumAutorizacion(wsSimitCursoCia(cursoCIA).getNumAutorizacion());
         datosReporte.setNumeroSecuencia(wsSimitCursoCia(cursoCIA).getNumeroSecuencia());
         
-        agregarCursoReporte(datasource, datosReporte);
+        agregarCursoReporte(datasource, datosReporte, cursoCIA, comparendosCursoCIA);
         
         /*System.out.println ("Cod respuesta:  "+wsSimitCursoCia(cursoCIA).getCodigoRespuesta());
         System.out.println ("Fecha transaccion:  "+wsSimitCursoCia(cursoCIA).getFechaTransaccion());
@@ -406,16 +426,16 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         columna.clear();
 
     }
-generarReporte(5, datasource);
+    generarReporte(5, datasource);
     // cerramos el libro excel
     workbook.close();
     }
     
     //////////// INSTANCIA DEL REPORTE /////////////////
     
-    public void agregarCursoReporte(DataSource datasource, DatosSalidaCursoCia cursoCIA)
+    public void agregarCursoReporte(DataSource datasource, DatosSalidaCursoCia cursoCIA, DatosEntradaCursoCia otrosDatosCursoCIA, CursoComparendo otrosDatosCursoComparendo)
     {
-        datasource.addCursoSalida(cursoCIA);
+        datasource.addCursoSalida(cursoCIA, otrosDatosCursoCIA, otrosDatosCursoComparendo);
     }
     
     public void generarReporte(int cantidadRegistros, DataSource datasource)
@@ -443,8 +463,7 @@ generarReporte(5, datasource);
             jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
             JasperViewer.viewReport(jasperPrint);
             JasperExportManager.exportReportToPdfFile(jasperPrint, "src/reporte/reporte1.pdf");
-           
-          
+            
         }catch (JRException e){
             JOptionPane.showMessageDialog(null,"Error al cargar fichero jrml jasper report "+e.getMessage());
         }
