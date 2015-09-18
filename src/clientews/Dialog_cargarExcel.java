@@ -6,10 +6,13 @@ package clientews;
 
 import clases.DataSource;
 import clases.FechaHora;
+import clases.NumSecuencia;
 import static clientews.Dialog_formularioCursoCIA.luhnCheck;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -22,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -51,8 +55,10 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     File archivo;
     String ruta;
     ArrayList<String> columna = new ArrayList<String>();
+    NumSecuencia num_Secuencia = new NumSecuencia();
     // Organizamos el formato de fecha
     DateFormat date = new SimpleDateFormat("yyyyMMdd");
+    private DatosSalidaCursoCia objetoWS;
     
     /**
      * Creates new form Dialog_cargarExcel
@@ -70,10 +76,12 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jTextField_rutaArchivo = new javax.swing.JTextField();
+        jLabel_idInfractor1 = new javax.swing.JLabel();
         jButton_cargarExcel = new javax.swing.JButton();
         jButton_cancelar = new javax.swing.JButton();
-        jLabel_idInfractor1 = new javax.swing.JLabel();
+        jLabel_instrucciones = new javax.swing.JLabel();
 
         setTitle("Cargar archivo EXCEL");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -82,8 +90,17 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
             }
         });
 
-        jButton_cargarExcel.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTextField_rutaArchivo.setEnabled(false);
+
+        jLabel_idInfractor1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_idInfractor1.setText("Ruta del archivo:");
+        jLabel_idInfractor1.setToolTipText("");
+
+        jButton_cargarExcel.setBackground(new java.awt.Color(102, 102, 255));
         jButton_cargarExcel.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_cargarExcel.setForeground(new java.awt.Color(255, 255, 255));
         jButton_cargarExcel.setText("Cargar");
         jButton_cargarExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_cargarExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -92,8 +109,9 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
             }
         });
 
-        jButton_cancelar.setBackground(new java.awt.Color(255, 204, 102));
+        jButton_cancelar.setBackground(new java.awt.Color(102, 102, 255));
         jButton_cancelar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_cancelar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_cancelar.setText("Cancelar");
         jButton_cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -102,40 +120,56 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
             }
         });
 
-        jLabel_idInfractor1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_idInfractor1.setText("Ruta del archivo:");
-        jLabel_idInfractor1.setToolTipText("");
+        jLabel_instrucciones.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_instrucciones.setText("Seleccione el archivo de excel haciendo click en el botón cargar:");
+        jLabel_instrucciones.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(213, 213, 213)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_cargarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_idInfractor1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField_rutaArchivo)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel_instrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel_instrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_idInfractor1)
+                    .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton_cargarExcel)
+                .addGap(18, 18, 18)
+                .addComponent(jButton_cancelar)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_idInfractor1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton_cargarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_idInfractor1))
-                .addGap(32, 32, 32)
-                .addComponent(jButton_cargarExcel)
-                .addGap(18, 18, 18)
-                .addComponent(jButton_cancelar)
-                .addGap(100, 100, 100))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -146,11 +180,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        setVisible(false);
         dispose();
-        JFrame_Principal user = new JFrame_Principal();
-        user.setVisible(true);
-        user.pack();
     }//GEN-LAST:event_closeDialog
 
     private void jButton_cargarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cargarExcelActionPerformed
@@ -193,9 +223,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     private void jButton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        JFrame_Principal user = new JFrame_Principal();
-        user.setVisible(true);
-        user.pack();
     }//GEN-LAST:event_jButton_cancelarActionPerformed
 
 
@@ -204,7 +231,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     
     public void captDatosExcelXls(String rutaArchivo) throws FileNotFoundException, IOException {
         
-    FechaHora fecha = new FechaHora();
     
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
@@ -275,7 +301,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     
     FechaHora fecha = new FechaHora();
     DataSource datasource = new DataSource();
-    DateFormat formatter;
 
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
@@ -286,6 +311,10 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
      * que nos permite recorrer cada una de las filas que contiene.
      */
     XSSFSheet sheet = workbook.getSheetAt(0);
+    
+    System.out.println(sheet.getLastRowNum()); // numero de filas
+    int numConsecutivo = num_Secuencia.VerificarTxt(sheet.getLastRowNum()); // Calcular el numero consecutivo
+    
     Iterator<Row> rowIterator = sheet.iterator();
     Row row;
     // Recorremos todas las filas para mostrar el contenido de cada celda
@@ -335,12 +364,14 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         
         DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
         
+        String nuevaFecha = fecha.fechaActual().substring(2,8);
+        
         cursoCIA.setCiudadCia("11001000"); // Fijo
         cursoCIA.setCodigoCia("9002852265"); // Fijo
         cursoCIA.setCodigoCurso("1"); // Fijo
         cursoCIA.setCodigoSedeCia("76834000"); // Fijo
         cursoCIA.setCodigoTransaccion("000003"); // Fijo
-        cursoCIA.setDireccionAdquiriente("127.0.0.1");
+        cursoCIA.setDireccionAdquiriente("127.0.0.1"); // Asignar IP fija al equipo que va a consumir el WS
         cursoCIA.setFechaRealizacionCurso(columna.get(24));
         cursoCIA.setFechaTransaccion(fecha.fechaActual());
         cursoCIA.setFuncionarioRegistra(columna.get(10));
@@ -349,12 +380,10 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         cursoCIA.setHoraTransaccion(fecha.horaActual());
         cursoCIA.setIdentificacionInfractor(columna.get(12));
         cursoCIA.setIdentificacionInstructor(columna.get(28));
-        cursoCIA.setNumeroSecuencia(columna.get(27));
+        cursoCIA.setNumeroSecuencia(nuevaFecha + Integer.toString(numConsecutivo));
         cursoCIA.setTipoIdentificacion(columna.get(11));
         
         CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
-        
-        String nuevaFecha = fecha.fechaActual().substring(2,8);
         
         /////////////// PONER CEROS A LA IZQUIERDA EN NUMERO REFERENCIA DESCUENTO (NUM_CERTIFICADO)///////////////////////
         
@@ -373,7 +402,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        comparendosCursoCIA.setFechaComparendo("20150914"); // generar EXCEL
+        comparendosCursoCIA.setFechaComparendo("20150911"); // generar EXCEL
         comparendosCursoCIA.setNumeroCertificado(columna.get(27));
         comparendosCursoCIA.setNumeroComparendo(columna.get(13));
         comparendosCursoCIA.setNumeroResolucion(columna.get(14));
@@ -385,9 +414,11 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         
         DatosSalidaCursoCia datosReporte = instancia.createDatosSalidaCursoCia();
         
+        objetoWS = wsSimitCursoCia(cursoCIA);
+        
         String mensajeEstado = "";
         
-        if(wsSimitCursoCia(cursoCIA).getCodigoRespuesta().equals("0000"))
+        if(objetoWS.getCodigoRespuesta().equals("0000"))
         {
             mensajeEstado = "OK";
         }
@@ -397,36 +428,20 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         }
               
         datosReporte.setCodigoRespuesta(mensajeEstado);
-        datosReporte.setMensajeRespuesta(wsSimitCursoCia(cursoCIA).getMensajeRespuesta());
-        datosReporte.setNumAutorizacion(wsSimitCursoCia(cursoCIA).getNumAutorizacion());
-        datosReporte.setNumeroSecuencia(wsSimitCursoCia(cursoCIA).getNumeroSecuencia());
+        datosReporte.setMensajeRespuesta(objetoWS.getMensajeRespuesta());
+        datosReporte.setNumAutorizacion(objetoWS.getNumAutorizacion());
+        datosReporte.setNumeroSecuencia(objetoWS.getNumeroSecuencia());
+        
+        System.out.println("Numero consecutivo:  " + cursoCIA.getNumeroSecuencia());
         
         agregarCursoReporte(datasource, datosReporte, cursoCIA, comparendosCursoCIA);
         
-        /*System.out.println ("Cod respuesta:  "+wsSimitCursoCia(cursoCIA).getCodigoRespuesta());
-        System.out.println ("Fecha transaccion:  "+wsSimitCursoCia(cursoCIA).getFechaTransaccion());
-        System.out.println ("Hora transaccion:  "+wsSimitCursoCia(cursoCIA).getHoraTransaccion());
-        System.out.println ("Num Autorizacion:  "+wsSimitCursoCia(cursoCIA).getNumAutorizacion());
-        System.out.println ("Mensaje respuesta del WS:  "+wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
-        System.out.println ("Num secuencia:  "+wsSimitCursoCia(cursoCIA).getNumeroSecuencia());*/
-        
-        //   FIN conexion al WS
-        
-        /*Iterator<String> arrayC = columna.iterator();
-        
-        int cont = 1;
-        
-        while (arrayC.hasNext()) 
-        {
-            String next = arrayC.next();
-            System.out.println("Valor "+cont+": "+next);
-            cont ++;
-        } */
+        numConsecutivo ++;
         
         columna.clear();
 
     }
-    generarReporte(5, datasource);
+    generarReporte(datasource);
     // cerramos el libro excel
     workbook.close();
     }
@@ -438,18 +453,10 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         datasource.addCursoSalida(cursoCIA, otrosDatosCursoCIA, otrosDatosCursoComparendo);
     }
     
-    public void generarReporte(int cantidadRegistros, DataSource datasource)
+    public void generarReporte(DataSource datasource) throws IOException
     {
         InputStream inputStream = null;
         JasperPrint jasperPrint= null;
-       
-        for(int i = 0; i<=cantidadRegistros; i++){
-           
-            /*DatosSalidaCursoCia asist;
-            asist = new Asistentes(i, "AsistenteNombre de "+i,"AsistenteApellidos de "+i, "Asistente dni de "+i);
-            datasource.addCursoSalida(cursoCIA);*/
-           
-        }
        
        try {
             inputStream = new FileInputStream ("src/reporte/estadoRegistroCursosCIA.jrxml");
@@ -458,12 +465,48 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         }
         
         try{
-            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
-            JasperViewer.viewReport(jasperPrint);
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "src/reporte/reporte1.pdf");
+            FechaHora hora = new FechaHora();
+            JFileChooser file=new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo PDF", "pdf");
+            file.setFileFilter(filtro);
+            file.setDialogTitle("Guardar reporte");
+            file.setSelectedFile(new File("reporteCursoCIA" + hora.fechaActual() + hora.horaActual()));
+            int opcion = file.showSaveDialog(this);
             
+            switch (opcion) 
+            {
+                case JFileChooser.APPROVE_OPTION:
+                {
+                    File guardar =file.getSelectedFile();
+
+                    if(guardar !=null)
+                    {
+                     /*guardamos el archivo y le damos el formato directamente,
+                      * si queremos que se guarde en formato doc lo definimos como .doc*/
+                        JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+                        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                        jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, guardar + ".pdf");
+                        Desktop.getDesktop().open(new File(guardar + ".pdf"));
+                        //JOptionPane.showMessageDialog(null, "El archivo se ha guardado exitosamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+                      }
+                      break;
+                }
+                case JFileChooser.CANCEL_OPTION:
+                {
+                    this.dispose();
+                    break;
+                }  
+                case JFileChooser.ERROR_OPTION:
+                {
+                    JOptionPane.showMessageDialog(null, "Error en el guardado de archivo", "Error",JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+                  
+            }
+            
+            
+
         }catch (JRException e){
             JOptionPane.showMessageDialog(null,"Error al cargar fichero jrml jasper report "+e.getMessage());
         }
@@ -473,6 +516,8 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     public javax.swing.JButton jButton_cancelar;
     public javax.swing.JButton jButton_cargarExcel;
     private javax.swing.JLabel jLabel_idInfractor1;
+    private javax.swing.JLabel jLabel_instrucciones;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField_rutaArchivo;
     // End of variables declaration//GEN-END:variables
 

@@ -4,6 +4,8 @@
  */
 package clientews;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author JuanJo
@@ -15,6 +17,14 @@ public class JFrame_Principal extends javax.swing.JFrame {
      */
     public JFrame_Principal() {
         initComponents();
+        try
+        {
+            this.setIconImage(new ImageIcon(getClass().getResource("../archivos/icon_1.jpg")).getImage());
+        }
+        catch(Exception e)
+        {
+            
+        }
     }
 
     /**
@@ -26,51 +36,29 @@ public class JFrame_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jButton_abrirFormulario = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton_cargarExcel = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton_abrirFormulario = new javax.swing.JButton();
+        jLabel_logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cliente Web Service SIMIT: Cursos CIA");
-        setBackground(null);
+        setBackground(new java.awt.Color(102, 102, 255));
+        setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Reporte manual"));
-        jPanel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jPanel2.setName(""); // NOI18N
-
-        jButton_abrirFormulario.setBackground(new java.awt.Color(255, 204, 102));
-        jButton_abrirFormulario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton_abrirFormulario.setText("Abrir formulario");
-        jButton_abrirFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_abrirFormulario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_abrirFormularioActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton_abrirFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jButton_abrirFormulario)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Reporte automático"));
         jPanel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jPanel3.setName(""); // NOI18N
 
-        jButton_cargarExcel.setBackground(new java.awt.Color(255, 204, 102));
+        jButton_cargarExcel.setBackground(new java.awt.Color(102, 102, 255));
         jButton_cargarExcel.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_cargarExcel.setForeground(new java.awt.Color(255, 255, 255));
         jButton_cargarExcel.setText("Cargar archivo Excel");
         jButton_cargarExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_cargarExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -95,29 +83,93 @@ public class JFrame_Principal extends javax.swing.JFrame {
 
         jButton_cargarExcel.getAccessibleContext().setAccessibleDescription("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Reporte manual"));
+        jPanel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jPanel2.setName(""); // NOI18N
+
+        jButton_abrirFormulario.setBackground(new java.awt.Color(102, 102, 255));
+        jButton_abrirFormulario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_abrirFormulario.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_abrirFormulario.setText("Abrir formulario");
+        jButton_abrirFormulario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_abrirFormulario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_abrirFormularioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton_abrirFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jButton_abrirFormulario)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        jLabel_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/archivos/logo.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(jLabel_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         jPanel2.getAccessibleContext().setAccessibleName("Reporte manual de cursos");
         jPanel2.getAccessibleContext().setAccessibleDescription("");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -125,7 +177,6 @@ public class JFrame_Principal extends javax.swing.JFrame {
 
     private void jButton_abrirFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_abrirFormularioActionPerformed
         // TODO add your handling code here:
-        this.dispose();
         Dialog_formularioCursoCIA user = new Dialog_formularioCursoCIA(this,true);
         user.setVisible(true);
         user.pack();
@@ -133,7 +184,6 @@ public class JFrame_Principal extends javax.swing.JFrame {
 
     private void jButton_cargarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cargarExcelActionPerformed
         // TODO add your handling code here:
-        this.dispose();
         Dialog_cargarExcel user = new Dialog_cargarExcel(this,true);
         user.setVisible(true);
         user.pack();
@@ -177,7 +227,10 @@ public class JFrame_Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_abrirFormulario;
     private javax.swing.JButton jButton_cargarExcel;
+    private javax.swing.JLabel jLabel_logo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }

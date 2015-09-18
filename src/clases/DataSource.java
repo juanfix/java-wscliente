@@ -41,32 +41,23 @@ public class DataSource implements JRDataSource{
        Object valor = null;
        
         if ("cod_respuesta".equals(jrf.getName())){
-
             valor = listaCursos.get(indiceCursoActual).getCodigoRespuesta();
-
         }
         else if ("mensaje_respuesta".equals(jrf.getName())){
-
             valor = listaCursos.get(indiceCursoActual).getMensajeRespuesta();
         }
         else if ("num_autorizacion".equals(jrf.getName())){
-
             valor = listaCursos.get(indiceCursoActual).getNumAutorizacion();
-
         }
         else if ("id_infractor".equals(jrf.getName())){
             valor = otrosDatosCursoCIA.get(indiceCursoActual).getIdentificacionInfractor();
-            //valor = id_infractor;
         }
         else if ("num_comparendo".equals(jrf.getName())){
             valor = otrosDatosCursoComparendo.get(indiceCursoActual).getNumeroComparendo();
-            //valor = num_comparendo;
         }
         else if ("num_certificado".equals(jrf.getName())){
              valor = otrosDatosCursoComparendo.get(indiceCursoActual).getNumeroCertificado();
-            //valor = num_certificado;
         }
-        
         return valor;
     }
     

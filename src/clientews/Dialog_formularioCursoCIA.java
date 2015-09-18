@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -33,6 +34,7 @@ String datos[];
     public Dialog_formularioCursoCIA(JFrame_Principal parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("../archivos/icon_1.jpg")).getImage());
         jButton_aceptar.setVisible(true);
         
         FechaHora fecha = new FechaHora();
@@ -121,8 +123,9 @@ String datos[];
         add(jTextField_codigoSedeCIA);
         jTextField_codigoSedeCIA.setBounds(240, 160, 331, 27);
 
-        jButton_aceptar.setBackground(new java.awt.Color(255, 204, 102));
+        jButton_aceptar.setBackground(new java.awt.Color(102, 102, 255));
         jButton_aceptar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_aceptar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_aceptar.setText("Aceptar");
         jButton_aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -133,8 +136,9 @@ String datos[];
         add(jButton_aceptar);
         jButton_aceptar.setBounds(110, 680, 90, 27);
 
-        jButton_limpiar.setBackground(new java.awt.Color(255, 204, 102));
+        jButton_limpiar.setBackground(new java.awt.Color(102, 102, 255));
         jButton_limpiar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_limpiar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_limpiar.setText("Limpiar");
         jButton_limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,8 +154,9 @@ String datos[];
         add(jLabel_fecha);
         jLabel_fecha.setBounds(430, 30, 50, 18);
 
-        jButton_cancelar.setBackground(new java.awt.Color(255, 204, 102));
+        jButton_cancelar.setBackground(new java.awt.Color(102, 102, 255));
         jButton_cancelar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_cancelar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_cancelar.setText("Cancelar");
         jButton_cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -338,11 +343,7 @@ String datos[];
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        setVisible(false);
         dispose();
-        JFrame_Principal user = new JFrame_Principal();
-        user.setVisible(true);
-        user.pack();
     }//GEN-LAST:event_closeDialog
 
     private void jButton_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_aceptarActionPerformed
@@ -480,9 +481,6 @@ String datos[];
     private void jButton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        JFrame_Principal user = new JFrame_Principal();
-        user.setVisible(true);
-        user.pack();
     }//GEN-LAST:event_jButton_cancelarActionPerformed
     
     public void limpiarRegistros()

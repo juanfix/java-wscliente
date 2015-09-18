@@ -65,35 +65,35 @@
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="81" y="10" width="100" height="31" uuid="a7758410-092a-4f26-b52a-4c580dd0b431"/>
+				<reportElement x="79" y="10" width="100" height="31" uuid="a7758410-092a-4f26-b52a-4c580dd0b431"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mensaje de Respuesta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="208" y="10" width="100" height="31" uuid="2b959c58-16a2-438a-99b8-a8494f821479"/>
+				<reportElement x="204" y="10" width="100" height="31" uuid="2b959c58-16a2-438a-99b8-a8494f821479"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Núm. de autorización]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="311" y="10" width="100" height="31" uuid="4c1f2cb8-b89c-4591-a5bc-d35c09613c61"/>
+				<reportElement x="306" y="10" width="108" height="31" uuid="4c1f2cb8-b89c-4591-a5bc-d35c09613c61"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Núm de comparendo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="482" y="10" width="71" height="31" uuid="5563e9dd-3a77-4c41-b061-35c4253f5bc6"/>
+				<reportElement x="483" y="10" width="71" height="31" uuid="5563e9dd-3a77-4c41-b061-35c4253f5bc6"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Identificación del infractor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="413" y="10" width="66" height="31" uuid="7e94faf7-de91-465d-83a2-03c90d6f7f38"/>
+				<reportElement x="415" y="10" width="66" height="31" uuid="7e94faf7-de91-465d-83a2-03c90d6f7f38"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
@@ -111,35 +111,35 @@
 				<textFieldExpression><![CDATA[$F{cod_respuesta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="61" y="7" width="144" height="50" uuid="3a1c35ba-836d-4551-80a5-be8750c3718e"/>
+				<reportElement x="59" y="7" width="144" height="50" uuid="3a1c35ba-836d-4551-80a5-be8750c3718e"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mensaje_respuesta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="208" y="7" width="100" height="20" uuid="4305d548-fa9f-4832-9838-0f4ac6fa39d9"/>
+				<reportElement x="204" y="7" width="100" height="20" uuid="4305d548-fa9f-4832-9838-0f4ac6fa39d9"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{num_autorizacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="311" y="7" width="100" height="20" uuid="76549579-11c5-4377-b7a3-1ceba1fdea21"/>
+				<reportElement x="306" y="7" width="108" height="20" uuid="76549579-11c5-4377-b7a3-1ceba1fdea21"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{num_comparendo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="482" y="7" width="71" height="20" uuid="2fc37b1a-d09f-4795-8b31-f93f4b4596fb"/>
+				<reportElement x="483" y="7" width="71" height="20" uuid="2fc37b1a-d09f-4795-8b31-f93f4b4596fb"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id_infractor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="413" y="7" width="66" height="20" uuid="704281f7-d34f-4500-bea9-cf24397b35e0"/>
+				<reportElement x="415" y="7" width="66" height="20" uuid="704281f7-d34f-4500-bea9-cf24397b35e0"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9"/>
 				</textElement>
