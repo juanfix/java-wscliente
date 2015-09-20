@@ -6,7 +6,7 @@ package clientews;
 
 import clases.DataSource;
 import clases.FechaHora;
-import clases.NumSecuencia;
+import clases.GestionTXT;
 import static clientews.Dialog_formularioCursoCIA.luhnCheck;
 import java.awt.Desktop;
 import java.io.File;
@@ -55,7 +55,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     File archivo;
     String ruta;
     ArrayList<String> columna = new ArrayList<String>();
-    NumSecuencia num_Secuencia = new NumSecuencia();
+    GestionTXT num_Secuencia = new GestionTXT();
     // Organizamos el formato de fecha
     DateFormat date = new SimpleDateFormat("yyyyMMdd");
     private DatosSalidaCursoCia objetoWS;
@@ -83,6 +83,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         jButton_cancelar = new javax.swing.JButton();
         jLabel_instrucciones = new javax.swing.JLabel();
 
+        setResizable(false);
         setTitle("Cargar archivo EXCEL");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -121,7 +122,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         });
 
         jLabel_instrucciones.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_instrucciones.setText("Seleccione el archivo de excel haciendo click en el botón cargar:");
+        jLabel_instrucciones.setText("Seleccione el archivo de excel haciendo click en el botón cargar");
         jLabel_instrucciones.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -169,7 +170,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -313,7 +314,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     XSSFSheet sheet = workbook.getSheetAt(0);
     
     System.out.println(sheet.getLastRowNum()); // numero de filas
-    int numConsecutivo = num_Secuencia.VerificarTxt(sheet.getLastRowNum()); // Calcular el numero consecutivo
+    int numConsecutivo = num_Secuencia.verificarTxt(sheet.getLastRowNum()); // Calcular el numero consecutivo
     
     Iterator<Row> rowIterator = sheet.iterator();
     Row row;
@@ -365,13 +366,13 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
         
         String nuevaFecha = fecha.fechaActual().substring(2,8);
-        
+              
         cursoCIA.setCiudadCia("11001000"); // Fijo
         cursoCIA.setCodigoCia("9002852265"); // Fijo
         cursoCIA.setCodigoCurso("1"); // Fijo
         cursoCIA.setCodigoSedeCia("76834000"); // Fijo
         cursoCIA.setCodigoTransaccion("000003"); // Fijo
-        cursoCIA.setDireccionAdquiriente("127.0.0.1"); // Asignar IP fija al equipo que va a consumir el WS
+        cursoCIA.setDireccionAdquiriente(num_Secuencia.asignarIP());
         cursoCIA.setFechaRealizacionCurso(columna.get(24));
         cursoCIA.setFechaTransaccion(fecha.fechaActual());
         cursoCIA.setFuncionarioRegistra(columna.get(10));
@@ -433,6 +434,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         datosReporte.setNumeroSecuencia(objetoWS.getNumeroSecuencia());
         
         System.out.println("Numero consecutivo:  " + cursoCIA.getNumeroSecuencia());
+        System.out.println("Direccion IP:  " + num_Secuencia.asignarIP());
         
         agregarCursoReporte(datasource, datosReporte, cursoCIA, comparendosCursoCIA);
         

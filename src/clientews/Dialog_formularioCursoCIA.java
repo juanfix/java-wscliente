@@ -34,9 +34,6 @@ String datos[];
     public Dialog_formularioCursoCIA(JFrame_Principal parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.setIconImage(new ImageIcon(getClass().getResource("../archivos/icon_1.jpg")).getImage());
-        jButton_aceptar.setVisible(true);
-        
         FechaHora fecha = new FechaHora();
         fecha.fecha(jLabel_fecha_mostrar);
         fecha.hora(jLabel_hora_mostrar);
@@ -51,23 +48,18 @@ String datos[];
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel_direccionIP = new javax.swing.JLabel();
-        jLabel_codigoCIA = new javax.swing.JLabel();
-        jLabel_ciudadCIA = new javax.swing.JLabel();
-        jLabel_codigoSedeCIA = new javax.swing.JLabel();
-        jTextField_dirIP = new javax.swing.JTextField();
-        jTextField_codigoCIA = new javax.swing.JTextField();
-        jTextField_ciudadCIA = new javax.swing.JTextField();
-        jTextField_codigoSedeCIA = new javax.swing.JTextField();
-        jButton_aceptar = new javax.swing.JButton();
-        jButton_limpiar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jLabel_fecha = new javax.swing.JLabel();
-        jButton_cancelar = new javax.swing.JButton();
         jLabel_hora = new javax.swing.JLabel();
         jLabel_hora_mostrar = new javax.swing.JLabel();
         jLabel_fecha_mostrar = new javax.swing.JLabel();
         jTextField_idFuncionario = new javax.swing.JTextField();
         jLabel_idFuncionario = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel_idTipo1 = new javax.swing.JLabel();
+        jLabel_idInfractor1 = new javax.swing.JLabel();
+        jTextField_idInfractor = new javax.swing.JTextField();
+        jComboBox_tipoID = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel_fechaCurso = new javax.swing.JLabel();
         jLabel_codCurso = new javax.swing.JLabel();
@@ -79,11 +71,24 @@ String datos[];
         jTextField_idInstructor = new javax.swing.JTextField();
         jLabel_idInstructor = new javax.swing.JLabel();
         jDateChooser_fechaCurso = new com.toedter.calendar.JDateChooser();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel_idTipo1 = new javax.swing.JLabel();
-        jLabel_idInfractor1 = new javax.swing.JLabel();
-        jTextField_idInfractor = new javax.swing.JTextField();
-        jComboBox_tipoID = new javax.swing.JComboBox();
+        jButton_aceptar = new javax.swing.JButton();
+        jButton_limpiar = new javax.swing.JButton();
+        jButton_cancelar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel_fechaCurso1 = new javax.swing.JLabel();
+        jTextField_numCertificado = new javax.swing.JTextField();
+        jLabel_numCertificado = new javax.swing.JLabel();
+        jDateChooser_fechaComparendo = new com.toedter.calendar.JDateChooser();
+        jTextField_numComparendo = new javax.swing.JTextField();
+        jLabel_numComparendo = new javax.swing.JLabel();
+        jLabel_numResolucion = new javax.swing.JLabel();
+        jTextField_numResolucion = new javax.swing.JTextField();
+        jTextField_numOrganismo = new javax.swing.JTextField();
+        jLabel_numOrganismo = new javax.swing.JLabel();
+        jTextField_numReferenciaDesc = new javax.swing.JTextField();
+        jLabel_numReferenciaDesc = new javax.swing.JLabel();
+        jComboBox_tipoComparendo = new javax.swing.JComboBox();
+        jLabel_tipoComparendo = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -93,102 +98,69 @@ String datos[];
                 closeDialog(evt);
             }
         });
-        setLayout(null);
 
-        jLabel_direccionIP.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_direccionIP.setText("Dirección IP:");
-        add(jLabel_direccionIP);
-        jLabel_direccionIP.setBounds(20, 550, 90, 18);
-
-        jLabel_codigoCIA.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_codigoCIA.setText("Código CIA:");
-        add(jLabel_codigoCIA);
-        jLabel_codigoCIA.setBounds(20, 80, 80, 18);
-
-        jLabel_ciudadCIA.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_ciudadCIA.setText("Ciudad CIA:");
-        add(jLabel_ciudadCIA);
-        jLabel_ciudadCIA.setBounds(20, 120, 90, 18);
-
-        jLabel_codigoSedeCIA.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_codigoSedeCIA.setText("Código de la sede CIA:");
-        add(jLabel_codigoSedeCIA);
-        jLabel_codigoSedeCIA.setBounds(20, 160, 150, 18);
-        add(jTextField_dirIP);
-        jTextField_dirIP.setBounds(240, 550, 331, 27);
-        add(jTextField_codigoCIA);
-        jTextField_codigoCIA.setBounds(240, 80, 331, 27);
-        add(jTextField_ciudadCIA);
-        jTextField_ciudadCIA.setBounds(240, 120, 331, 27);
-        add(jTextField_codigoSedeCIA);
-        jTextField_codigoSedeCIA.setBounds(240, 160, 331, 27);
-
-        jButton_aceptar.setBackground(new java.awt.Color(102, 102, 255));
-        jButton_aceptar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton_aceptar.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_aceptar.setText("Aceptar");
-        jButton_aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_aceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_aceptarActionPerformed(evt);
-            }
-        });
-        add(jButton_aceptar);
-        jButton_aceptar.setBounds(110, 680, 90, 27);
-
-        jButton_limpiar.setBackground(new java.awt.Color(102, 102, 255));
-        jButton_limpiar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton_limpiar.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_limpiar.setText("Limpiar");
-        jButton_limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_limpiarActionPerformed(evt);
-            }
-        });
-        add(jButton_limpiar);
-        jButton_limpiar.setBounds(390, 680, 95, 27);
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel_fecha.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_fecha.setText("Fecha:");
-        add(jLabel_fecha);
-        jLabel_fecha.setBounds(430, 30, 50, 18);
-
-        jButton_cancelar.setBackground(new java.awt.Color(102, 102, 255));
-        jButton_cancelar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton_cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_cancelar.setText("Cancelar");
-        jButton_cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_cancelarActionPerformed(evt);
-            }
-        });
-        add(jButton_cancelar);
-        jButton_cancelar.setBounds(250, 680, 96, 27);
 
         jLabel_hora.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_hora.setText("Hora:");
-        add(jLabel_hora);
-        jLabel_hora.setBounds(430, 50, 50, 18);
 
         jLabel_hora_mostrar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_hora_mostrar.setText("?");
-        add(jLabel_hora_mostrar);
-        jLabel_hora_mostrar.setBounds(480, 50, 100, 20);
 
         jLabel_fecha_mostrar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_fecha_mostrar.setText("?");
-        add(jLabel_fecha_mostrar);
-        jLabel_fecha_mostrar.setBounds(480, 30, 100, 20);
-        add(jTextField_idFuncionario);
-        jTextField_idFuncionario.setBounds(240, 200, 331, 27);
 
         jLabel_idFuncionario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_idFuncionario.setText("Identificación funcionario CIA:");
         jLabel_idFuncionario.setToolTipText("");
-        add(jLabel_idFuncionario);
-        jLabel_idFuncionario.setBounds(20, 200, 210, 18);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del infractor"));
+        jPanel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jPanel3.setName(""); // NOI18N
+
+        jLabel_idTipo1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_idTipo1.setText("Tipo de identificación:");
+        jLabel_idTipo1.setToolTipText("");
+
+        jLabel_idInfractor1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_idInfractor1.setText("Identificación del infractor:");
+        jLabel_idInfractor1.setToolTipText("");
+
+        jComboBox_tipoID.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cédula", "Tarjeta identidad", "Cédula Extranjería ", "Nit", "Pasaporte", "Carnet Diplomático", "Registro Civil", "Cédula venezolana" }));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel_idInfractor1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_idInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel_idTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox_tipoID, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_idTipo1)
+                    .addComponent(jComboBox_tipoID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_idInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_idInfractor1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del curso"));
@@ -248,14 +220,14 @@ String datos[];
                                     .addComponent(jLabel_horaCursoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -269,71 +241,242 @@ String datos[];
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_fechaCurso)
                     .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_horaCursoInicio)
                     .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_horaFinalInicio)
                     .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_idInstructor)
                     .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton_aceptar.setBackground(new java.awt.Color(102, 102, 255));
+        jButton_aceptar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_aceptar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_aceptar.setText("Aceptar");
+        jButton_aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_aceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_aceptarActionPerformed(evt);
+            }
+        });
+
+        jButton_limpiar.setBackground(new java.awt.Color(102, 102, 255));
+        jButton_limpiar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_limpiar.setText("Limpiar");
+        jButton_limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_limpiarActionPerformed(evt);
+            }
+        });
+
+        jButton_cancelar.setBackground(new java.awt.Color(102, 102, 255));
+        jButton_cancelar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton_cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_cancelar.setText("Cancelar");
+        jButton_cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_cancelarActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del comparendo"));
+        jPanel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jPanel4.setName(""); // NOI18N
+
+        jLabel_fechaCurso1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_fechaCurso1.setText("Fecha del comparendo:");
+        jLabel_fechaCurso1.setToolTipText("");
+
+        jLabel_numCertificado.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_numCertificado.setText("Número de certificado:");
+        jLabel_numCertificado.setToolTipText("");
+
+        jLabel_numComparendo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_numComparendo.setText("Número de comparendo:");
+        jLabel_numComparendo.setToolTipText("");
+
+        jLabel_numResolucion.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_numResolucion.setText("Número de resolución:");
+        jLabel_numResolucion.setToolTipText("");
+
+        jLabel_numOrganismo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_numOrganismo.setText("Organismo de transito:");
+        jLabel_numOrganismo.setToolTipText("");
+
+        jLabel_numReferenciaDesc.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_numReferenciaDesc.setText("Número referencia de desc.");
+        jLabel_numReferenciaDesc.setToolTipText("");
+
+        jComboBox_tipoComparendo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PONAL", "POLCA" }));
+
+        jLabel_tipoComparendo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_tipoComparendo.setText("Tipo de comparendo:");
+        jLabel_tipoComparendo.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel_fechaCurso1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser_fechaComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel_numCertificado, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_numCertificado, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel_numComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_numComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel_numResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_numResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel_numOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_numOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel_numReferenciaDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_numReferenciaDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel_tipoComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox_tipoComparendo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_fechaCurso1)
+                    .addComponent(jDateChooser_fechaComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_numCertificado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_numCertificado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_numComparendo)
+                    .addComponent(jTextField_numComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_numResolucion)
+                    .addComponent(jTextField_numResolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_numOrganismo)
+                    .addComponent(jTextField_numOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_numReferenciaDesc)
+                    .addComponent(jTextField_numReferenciaDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_tipoComparendo)
+                    .addComponent(jComboBox_tipoComparendo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        add(jPanel2);
-        jPanel2.setBounds(10, 330, 570, 210);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del infractor"));
-        jPanel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jPanel3.setName(""); // NOI18N
-
-        jLabel_idTipo1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_idTipo1.setText("Tipo de identificación:");
-        jLabel_idTipo1.setToolTipText("");
-
-        jLabel_idInfractor1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_idInfractor1.setText("Identificación del infractor:");
-        jLabel_idInfractor1.setToolTipText("");
-
-        jComboBox_tipoID.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cédula", "Tarjeta identidad", "Cédula Extranjería ", "Nit", "Pasaporte", "Carnet Diplomático", "Registro Civil", "Cédula venezolana" }));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel_idInfractor1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_idInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel_idTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox_tipoID, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel_fecha_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel_hora_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jButton_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jButton_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_idTipo1)
-                    .addComponent(jComboBox_tipoID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_idInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_idInfractor1))
-                .addContainerGap(14, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_fecha)
+                    .addComponent(jLabel_fecha_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_hora)
+                    .addComponent(jLabel_hora_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_idFuncionario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_aceptar)
+                    .addComponent(jButton_cancelar)
+                    .addComponent(jButton_limpiar))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        add(jPanel3);
-        jPanel3.setBounds(10, 230, 570, 100);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setSize(new java.awt.Dimension(603, 751));
         setLocationRelativeTo(null);
@@ -486,19 +629,11 @@ String datos[];
     public void limpiarRegistros()
     {
         jTextField_codCurso.setText("");
-        jTextField_dirIP.setText("");
-        jTextField_codigoCIA.setText("");
-        jTextField_ciudadCIA.setText("");
-        jTextField_codigoSedeCIA.setText("");
     }
-    
+   
     void asignarDatos(String[] datos) 
     {
         jTextField_codCurso.setText(datos[0]);
-        jTextField_dirIP.setText(datos[1]);
-        jTextField_codigoCIA.setText(datos[2]);
-        jTextField_ciudadCIA.setText(datos[3]);
-        jTextField_codigoSedeCIA.setText(datos[4]);
     }
     
     /**
@@ -509,15 +644,14 @@ String datos[];
     public javax.swing.JButton jButton_aceptar;
     public javax.swing.JButton jButton_cancelar;
     public javax.swing.JButton jButton_limpiar;
+    private javax.swing.JComboBox jComboBox_tipoComparendo;
     private javax.swing.JComboBox jComboBox_tipoID;
+    private com.toedter.calendar.JDateChooser jDateChooser_fechaComparendo;
     private com.toedter.calendar.JDateChooser jDateChooser_fechaCurso;
-    private javax.swing.JLabel jLabel_ciudadCIA;
     private javax.swing.JLabel jLabel_codCurso;
-    private javax.swing.JLabel jLabel_codigoCIA;
-    private javax.swing.JLabel jLabel_codigoSedeCIA;
-    private javax.swing.JLabel jLabel_direccionIP;
     private javax.swing.JLabel jLabel_fecha;
     private javax.swing.JLabel jLabel_fechaCurso;
+    private javax.swing.JLabel jLabel_fechaCurso1;
     private javax.swing.JLabel jLabel_fecha_mostrar;
     private javax.swing.JLabel jLabel_hora;
     private javax.swing.JLabel jLabel_horaCursoInicio;
@@ -527,18 +661,27 @@ String datos[];
     private javax.swing.JLabel jLabel_idInfractor1;
     private javax.swing.JLabel jLabel_idInstructor;
     private javax.swing.JLabel jLabel_idTipo1;
+    private javax.swing.JLabel jLabel_numCertificado;
+    private javax.swing.JLabel jLabel_numComparendo;
+    private javax.swing.JLabel jLabel_numOrganismo;
+    private javax.swing.JLabel jLabel_numReferenciaDesc;
+    private javax.swing.JLabel jLabel_numResolucion;
+    private javax.swing.JLabel jLabel_tipoComparendo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JSpinner jSpinner_horaFinalCurso;
     private javax.swing.JSpinner jSpinner_horaInicioCurso;
-    private javax.swing.JTextField jTextField_ciudadCIA;
     private javax.swing.JTextField jTextField_codCurso;
-    private javax.swing.JTextField jTextField_codigoCIA;
-    private javax.swing.JTextField jTextField_codigoSedeCIA;
-    private javax.swing.JTextField jTextField_dirIP;
     private javax.swing.JTextField jTextField_idFuncionario;
     private javax.swing.JTextField jTextField_idInfractor;
     private javax.swing.JTextField jTextField_idInstructor;
+    private javax.swing.JTextField jTextField_numCertificado;
+    private javax.swing.JTextField jTextField_numComparendo;
+    private javax.swing.JTextField jTextField_numOrganismo;
+    private javax.swing.JTextField jTextField_numReferenciaDesc;
+    private javax.swing.JTextField jTextField_numResolucion;
     // End of variables declaration//GEN-END:variables
 
     private static DatosSalidaCursoCia wsSimitCursoCia(clientews.DatosEntradaCursoCia oe) 

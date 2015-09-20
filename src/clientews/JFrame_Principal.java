@@ -4,6 +4,10 @@
  */
 package clientews;
 
+import clases.GestionTXT;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,11 +16,14 @@ import javax.swing.ImageIcon;
  */
 public class JFrame_Principal extends javax.swing.JFrame {
 
+    GestionTXT cantidadRegistrosHoy = new GestionTXT();
+    
     /**
      * Creates new form JFrame_Principal
      */
-    public JFrame_Principal() {
+    public JFrame_Principal() throws IOException {
         initComponents();
+        jLabel_cantRegistros.setText(cantidadRegistrosHoy.cantidadRegistros());
         try
         {
             this.setIconImage(new ImageIcon(getClass().getResource("../archivos/icon_1.jpg")).getImage());
@@ -36,6 +43,9 @@ public class JFrame_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -43,6 +53,18 @@ public class JFrame_Principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton_abrirFormulario = new javax.swing.JButton();
         jLabel_logo = new javax.swing.JLabel();
+        jLabel_mensajeInicio = new javax.swing.JLabel();
+        jLabel_cantRegistros = new javax.swing.JLabel();
+        jLabel_cantRegistrosMax = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cliente Web Service SIMIT: Cursos CIA");
@@ -108,12 +130,26 @@ public class JFrame_Principal extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(24, 24, 24)
                 .addComponent(jButton_abrirFormulario)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jLabel_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/archivos/logo.png"))); // NOI18N
+
+        jLabel_mensajeInicio.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_mensajeInicio.setText("Cantidad de registros del dia de hoy:");
+        jLabel_mensajeInicio.setToolTipText("");
+
+        jLabel_cantRegistros.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_cantRegistros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_cantRegistros.setText("?");
+        jLabel_cantRegistros.setToolTipText("");
+        jLabel_cantRegistros.setAlignmentX(0.5F);
+
+        jLabel_cantRegistrosMax.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel_cantRegistrosMax.setText("de  99");
+        jLabel_cantRegistrosMax.setToolTipText("");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -122,24 +158,36 @@ public class JFrame_Principal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(jLabel_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(jLabel_mensajeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel_cantRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_cantRegistrosMax, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_mensajeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_cantRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_cantRegistrosMax, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel2.getAccessibleContext().setAccessibleName("Reporte manual de cursos");
@@ -155,10 +203,23 @@ public class JFrame_Principal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jMenu3.setText("Opciones");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Cambiar dirección IP");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar2.add(jMenu3);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,6 +249,18 @@ public class JFrame_Principal extends javax.swing.JFrame {
         user.setVisible(true);
         user.pack();
     }//GEN-LAST:event_jButton_cargarExcelActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        Dialog_cambiarIP user = null;
+        try {
+            user = new Dialog_cambiarIP(this,true);
+        } catch (IOException ex) {
+            Logger.getLogger(JFrame_Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        user.setVisible(true);
+        user.pack();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,7 +292,11 @@ public class JFrame_Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame_Principal().setVisible(true);
+                try {
+                    new JFrame_Principal().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(JFrame_Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -227,7 +304,16 @@ public class JFrame_Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_abrirFormulario;
     private javax.swing.JButton jButton_cargarExcel;
+    private javax.swing.JLabel jLabel_cantRegistros;
+    private javax.swing.JLabel jLabel_cantRegistrosMax;
     private javax.swing.JLabel jLabel_logo;
+    private javax.swing.JLabel jLabel_mensajeInicio;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
