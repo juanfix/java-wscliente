@@ -251,15 +251,14 @@ public class JFrame_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_cargarExcelActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        Dialog_cambiarIP user = null;
         try {
-            user = new Dialog_cambiarIP(this,true);
+            // TODO add your handling code here:
+            Dialog_cambiarIP user = new Dialog_cambiarIP(this,true);
+            user.setVisible(true);
+            user.pack();
         } catch (IOException ex) {
             Logger.getLogger(JFrame_Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        user.setVisible(true);
-        user.pack();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**

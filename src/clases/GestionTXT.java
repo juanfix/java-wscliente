@@ -286,7 +286,6 @@ public class GestionTXT {
      
         String ruta = "src/archivos/direccionIP.txt";
         File archivo = new File(ruta);
-        BufferedWriter bw;
         FileReader fr = null;
         BufferedReader br = null;
         String linea = "";

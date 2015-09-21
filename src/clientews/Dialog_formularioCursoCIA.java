@@ -2,16 +2,13 @@ package clientews;
 
 
 import clases.FechaHora;
-import java.sql.SQLException;
+import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
 /*
@@ -62,15 +59,13 @@ String datos[];
         jComboBox_tipoID = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel_fechaCurso = new javax.swing.JLabel();
-        jLabel_codCurso = new javax.swing.JLabel();
-        jTextField_codCurso = new javax.swing.JTextField();
         jLabel_horaCursoInicio = new javax.swing.JLabel();
         jSpinner_horaInicioCurso = new javax.swing.JSpinner(new SpinnerDateModel());
-        jSpinner_horaFinalCurso = new javax.swing.JSpinner(new SpinnerDateModel());
         jLabel_horaFinalInicio = new javax.swing.JLabel();
         jTextField_idInstructor = new javax.swing.JTextField();
         jLabel_idInstructor = new javax.swing.JLabel();
         jDateChooser_fechaCurso = new com.toedter.calendar.JDateChooser();
+        jSpinner_horaFinCurso = new javax.swing.JSpinner(new SpinnerDateModel());
         jButton_aceptar = new javax.swing.JButton();
         jButton_limpiar = new javax.swing.JButton();
         jButton_cancelar = new javax.swing.JButton();
@@ -113,6 +108,12 @@ String datos[];
         jLabel_fecha_mostrar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_fecha_mostrar.setText("?");
 
+        jTextField_idFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_idFuncionarioKeyTyped(evt);
+            }
+        });
+
         jLabel_idFuncionario.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_idFuncionario.setText("Identificación funcionario CIA:");
         jLabel_idFuncionario.setToolTipText("");
@@ -129,6 +130,12 @@ String datos[];
         jLabel_idInfractor1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_idInfractor1.setText("Identificación del infractor:");
         jLabel_idInfractor1.setToolTipText("");
+
+        jTextField_idInfractor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_idInfractorKeyTyped(evt);
+            }
+        });
 
         jComboBox_tipoID.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cédula", "Tarjeta identidad", "Cédula Extranjería ", "Nit", "Pasaporte", "Carnet Diplomático", "Registro Civil", "Cédula venezolana" }));
 
@@ -171,31 +178,29 @@ String datos[];
         jLabel_fechaCurso.setText("Fecha de realización del curso:");
         jLabel_fechaCurso.setToolTipText("");
 
-        jLabel_codCurso.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel_codCurso.setText("Código del curso:");
-        jLabel_codCurso.setToolTipText("");
-
         jLabel_horaCursoInicio.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_horaCursoInicio.setText("Hora de inicio del curso:");
         jLabel_horaCursoInicio.setToolTipText("");
 
-        Date date = new Date();
-        SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner_horaInicioCurso, "HH:mm");
         jSpinner_horaInicioCurso.setEditor(de);
-
-        Date date2 = new Date();
-        SpinnerDateModel sm2 = new SpinnerDateModel(date2, null, null, Calendar.HOUR_OF_DAY);
-        JSpinner.DateEditor de2 = new JSpinner.DateEditor(jSpinner_horaInicioCurso, "HH:mm");
-        jSpinner_horaFinalCurso.setEditor(de2);
 
         jLabel_horaFinalInicio.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_horaFinalInicio.setText("Hora de finalización del curso:");
         jLabel_horaFinalInicio.setToolTipText("");
 
+        jTextField_idInstructor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_idInstructorKeyTyped(evt);
+            }
+        });
+
         jLabel_idInstructor.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_idInstructor.setText("Identificación del instructor:");
         jLabel_idInstructor.setToolTipText("");
+
+        JSpinner.DateEditor de2 = new JSpinner.DateEditor(jSpinner_horaFinCurso, "HH:mm");
+        jSpinner_horaFinCurso.setEditor(de2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -204,17 +209,13 @@ String datos[];
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64)
-                                .addComponent(jTextField_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel_horaCursoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,20 +225,16 @@ String datos[];
                                     .addComponent(jLabel_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSpinner_horaFinCurso))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_codCurso)
-                    .addComponent(jTextField_codCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_fechaCurso)
                     .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,12 +245,12 @@ String datos[];
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_horaFinalInicio)
-                    .addComponent(jSpinner_horaFinalCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinner_horaFinCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_idInstructor)
                     .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         jButton_aceptar.setBackground(new java.awt.Color(102, 102, 255));
@@ -298,9 +295,21 @@ String datos[];
         jLabel_fechaCurso1.setText("Fecha del comparendo:");
         jLabel_fechaCurso1.setToolTipText("");
 
+        jTextField_numCertificado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_numCertificadoKeyTyped(evt);
+            }
+        });
+
         jLabel_numCertificado.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_numCertificado.setText("Número de certificado:");
         jLabel_numCertificado.setToolTipText("");
+
+        jTextField_numComparendo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_numComparendoKeyTyped(evt);
+            }
+        });
 
         jLabel_numComparendo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_numComparendo.setText("Número de comparendo:");
@@ -309,6 +318,23 @@ String datos[];
         jLabel_numResolucion.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_numResolucion.setText("Número de resolución:");
         jLabel_numResolucion.setToolTipText("");
+
+        jTextField_numResolucion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_numResolucionKeyTyped(evt);
+            }
+        });
+
+        jTextField_numOrganismo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_numOrganismoFocusLost(evt);
+            }
+        });
+        jTextField_numOrganismo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_numOrganismoKeyTyped(evt);
+            }
+        });
 
         jLabel_numOrganismo.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_numOrganismo.setText("Organismo de transito:");
@@ -431,7 +457,7 @@ String datos[];
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(107, 107, 107)
                         .addComponent(jButton_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,7 +490,7 @@ String datos[];
                     .addComponent(jButton_aceptar)
                     .addComponent(jButton_cancelar)
                     .addComponent(jButton_limpiar))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -478,7 +504,7 @@ String datos[];
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(603, 751));
+        setSize(new java.awt.Dimension(603, 723));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -625,15 +651,55 @@ String datos[];
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton_cancelarActionPerformed
-    
+
+    private void jTextField_idFuncionarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_idFuncionarioKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_idFuncionario,evt,16);
+    }//GEN-LAST:event_jTextField_idFuncionarioKeyTyped
+
+    private void jTextField_idInfractorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_idInfractorKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_idInfractor,evt,16);
+    }//GEN-LAST:event_jTextField_idInfractorKeyTyped
+
+    private void jTextField_idInstructorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_idInstructorKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_idInstructor,evt,16);
+    }//GEN-LAST:event_jTextField_idInstructorKeyTyped
+
+    private void jTextField_numCertificadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numCertificadoKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_numCertificado,evt,16);
+    }//GEN-LAST:event_jTextField_numCertificadoKeyTyped
+
+    private void jTextField_numComparendoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numComparendoKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_numComparendo,evt,20);
+    }//GEN-LAST:event_jTextField_numComparendoKeyTyped
+
+    private void jTextField_numResolucionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numResolucionKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_numResolucion,evt,20);
+    }//GEN-LAST:event_jTextField_numResolucionKeyTyped
+
+    private void jTextField_numOrganismoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numOrganismoKeyTyped
+        // TODO add your handling code here:
+        validarCamposNumericos(jTextField_numOrganismo,evt,8);
+    }//GEN-LAST:event_jTextField_numOrganismoKeyTyped
+
+    private void jTextField_numOrganismoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_numOrganismoFocusLost
+        // TODO add your handling code here:
+        completarCampo(jTextField_numOrganismo,evt,8);
+    }//GEN-LAST:event_jTextField_numOrganismoFocusLost
+        
     public void limpiarRegistros()
     {
-        jTextField_codCurso.setText("");
+        
     }
    
     void asignarDatos(String[] datos) 
     {
-        jTextField_codCurso.setText(datos[0]);
+        
     }
     
     /**
@@ -648,7 +714,6 @@ String datos[];
     private javax.swing.JComboBox jComboBox_tipoID;
     private com.toedter.calendar.JDateChooser jDateChooser_fechaComparendo;
     private com.toedter.calendar.JDateChooser jDateChooser_fechaCurso;
-    private javax.swing.JLabel jLabel_codCurso;
     private javax.swing.JLabel jLabel_fecha;
     private javax.swing.JLabel jLabel_fechaCurso;
     private javax.swing.JLabel jLabel_fechaCurso1;
@@ -671,9 +736,8 @@ String datos[];
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSpinner jSpinner_horaFinalCurso;
+    private javax.swing.JSpinner jSpinner_horaFinCurso;
     private javax.swing.JSpinner jSpinner_horaInicioCurso;
-    private javax.swing.JTextField jTextField_codCurso;
     private javax.swing.JTextField jTextField_idFuncionario;
     private javax.swing.JTextField jTextField_idInfractor;
     private javax.swing.JTextField jTextField_idInstructor;
@@ -718,6 +782,37 @@ String datos[];
   
         return ((s1 + s2) * 9) % 10;
         
-	}
+    }
+    
+    public void validarCamposNumericos(JTextField txt,KeyEvent evt,int pValor)
+    {
+        if(!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar()))
+        {
+            Toolkit.getDefaultToolkit().beep();
+            evt.consume();
+           
+        }
+        
+        if (txt.getText().length()>=pValor)
+        {
+            //JOptionPane.showMessageDialog(null,"Limite de caracteres"+pValor);
+            //jLabelIdFuncionario.setText("Limite de caracteres"+pValor);
+            evt.consume();
+        }
+        
+    }
+    public void completarCampo(JTextField txt,FocusEvent evt,int pValor)
+    {
+        String digito=null;
+        if (txt.getText().length()>=1 && txt.getText().length()<= pValor ) {
+            int result=txt.getText().length();
+            int result2= pValor-result;
+            for (int i = 1; i <= result2; i++) {
+                digito = txt.getText()+"0";
+                txt.setText(digito);
+            }
+        }
+        
+    }
     
 }

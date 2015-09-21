@@ -12,14 +12,12 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +32,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -369,7 +366,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
               
         cursoCIA.setCiudadCia("11001000"); // Fijo
         cursoCIA.setCodigoCia("9002852265"); // Fijo
-        cursoCIA.setCodigoCurso("1"); // Fijo
+        cursoCIA.setCodigoCurso("000001"); // Fijo
         cursoCIA.setCodigoSedeCia("76834000"); // Fijo
         cursoCIA.setCodigoTransaccion("000003"); // Fijo
         cursoCIA.setDireccionAdquiriente(num_Secuencia.asignarIP());
@@ -403,13 +400,13 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        comparendosCursoCIA.setFechaComparendo("20150911"); // generar EXCEL
+        comparendosCursoCIA.setFechaComparendo(columna.get(29)); // generar EXCEL
         comparendosCursoCIA.setNumeroCertificado(columna.get(27));
         comparendosCursoCIA.setNumeroComparendo(columna.get(13));
         comparendosCursoCIA.setNumeroResolucion(columna.get(14));
         comparendosCursoCIA.setOrganismoTransito(columna.get(15));
         comparendosCursoCIA.setReferenciaDescuento(numeroReferenciaDescuento);
-        comparendosCursoCIA.setTipoComparendo("PONAL"); // generarExcel
+        comparendosCursoCIA.setTipoComparendo(columna.get(30)); // generar EXCEL
                
         cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
         
@@ -432,9 +429,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         datosReporte.setMensajeRespuesta(objetoWS.getMensajeRespuesta());
         datosReporte.setNumAutorizacion(objetoWS.getNumAutorizacion());
         datosReporte.setNumeroSecuencia(objetoWS.getNumeroSecuencia());
-        
-        System.out.println("Numero consecutivo:  " + cursoCIA.getNumeroSecuencia());
-        System.out.println("Direccion IP:  " + num_Secuencia.asignarIP());
         
         agregarCursoReporte(datasource, datosReporte, cursoCIA, comparendosCursoCIA);
         
