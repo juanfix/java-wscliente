@@ -4,10 +4,12 @@
  */
 package clientews;
 
+
 import clases.DataSource;
 import clases.FechaHora;
 import clases.GestionTXT;
 import static clientews.Dialog_formularioCursoCIA.luhnCheck;
+import java.awt.Cursor;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,9 +62,13 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     /**
      * Creates new form Dialog_cargarExcel
      */
+    
+     public JFrame_Principal menu;
+    
     public Dialog_cargarExcel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.menu=(JFrame_Principal) parent;
     }
 
     /**
@@ -127,36 +133,34 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(213, 213, 213)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_cargarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel_instrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(jLabel_idInfractor1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField_rutaArchivo)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel_instrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(210, 210, 210)
+                .addComponent(jButton_cargarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(jButton_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel_instrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel_instrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_idInfractor1)
                     .addComponent(jTextField_rutaArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jButton_cargarExcel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_cancelar)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -196,7 +200,7 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
                                 captDatosExcelXlsx(ruta);
                             } catch (IOException ex) {
                                 Logger.getLogger(Dialog_cargarExcel.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            } 
                         }
                     }else if(archivo.getName().endsWith("xls")){
                         ruta = archivo.getAbsolutePath();
@@ -228,7 +232,11 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
     //////////////////////FUNCIONES/////////////////////////////////
     
     public void captDatosExcelXls(String rutaArchivo) throws FileNotFoundException, IOException {
-        
+    
+    this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+    
+    FechaHora fecha = new FechaHora();
+    DataSource datasource = new DataSource();
     
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
@@ -238,9 +246,12 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
      * Una vez obtenida la hoja excel con las filas que se quieren leer obtenemos el iterator
      * que nos permite recorrer cada una de las filas que contiene.
      */
+     
     HSSFSheet sheet = workbook.getSheetAt(0);
+    
+    int numConsecutivo = num_Secuencia.verificarTxt(sheet.getLastRowNum()); // Calcular el numero consecutivo
+    
     Iterator<Row> rowIterator = sheet.iterator();
-
     Row row;
     // Recorremos todas las filas para mostrar el contenido de cada celda
     while (rowIterator.hasNext()){
@@ -280,26 +291,104 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
                 break;
             }
         }
-
-        Iterator<String> arrayC = columna.iterator();
-
-        while (arrayC.hasNext()) {
-            String next = arrayC.next();
-            System.out.println(next);
-        } 
+        
+         //   INICIO conexion al WS
+        
+        ObjectFactory instancia = new ObjectFactory(); // Instancia para crear objetos en general
+        
+        DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
+        
+        String nuevaFecha = fecha.fechaActual().substring(2,8);
+              
+        cursoCIA.setCiudadCia("11001000"); // Fijo
+        cursoCIA.setCodigoCia("9002852265"); // Fijo
+        cursoCIA.setCodigoCurso("000001"); // Fijo
+        cursoCIA.setCodigoSedeCia("76834000"); // Fijo
+        cursoCIA.setCodigoTransaccion("000003"); // Fijo
+        cursoCIA.setDireccionAdquiriente(num_Secuencia.asignarIP());
+        cursoCIA.setFechaRealizacionCurso(columna.get(24));
+        cursoCIA.setFechaTransaccion(fecha.fechaActual());
+        cursoCIA.setFuncionarioRegistra(columna.get(10));
+        cursoCIA.setHoraFinCurso(columna.get(26));
+        cursoCIA.setHoraInicioCurso(columna.get(25));
+        cursoCIA.setHoraTransaccion(fecha.horaActual());
+        cursoCIA.setIdentificacionInfractor(columna.get(12));
+        cursoCIA.setIdentificacionInstructor(columna.get(28));
+        cursoCIA.setNumeroSecuencia(nuevaFecha + Integer.toString(numConsecutivo));
+        cursoCIA.setTipoIdentificacion(columna.get(11));
+        
+        CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
+        
+        /////////////// PONER CEROS A LA IZQUIERDA EN NUMERO REFERENCIA DESCUENTO (NUM_CERTIFICADO)///////////////////////
+        
+        String ceroNumCertificado = columna.get(27);
+        
+        if(columna.get(27).length() != 6)
+        {
+            for(int i=0 ; i < (6-columna.get(27).length()) ; i++)
+            {
+                ceroNumCertificado = "0" + ceroNumCertificado;
+            }
+        }
+        
+        String numeroReferenciaDescuento = nuevaFecha + ceroNumCertificado;
+        numeroReferenciaDescuento += luhnCheck(numeroReferenciaDescuento);
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        comparendosCursoCIA.setFechaComparendo(columna.get(29)); // generar EXCEL
+        comparendosCursoCIA.setNumeroCertificado(columna.get(27));
+        comparendosCursoCIA.setNumeroComparendo(columna.get(13));
+        comparendosCursoCIA.setNumeroResolucion(columna.get(14));
+        comparendosCursoCIA.setOrganismoTransito(columna.get(15));
+        comparendosCursoCIA.setReferenciaDescuento(numeroReferenciaDescuento);
+        comparendosCursoCIA.setTipoComparendo(columna.get(30)); // generar EXCEL
+               
+        cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
+        
+        DatosSalidaCursoCia datosReporte = instancia.createDatosSalidaCursoCia();
+        
+        objetoWS = wsSimitCursoCia(cursoCIA);
+        
+        String mensajeEstado = "";
+        
+        if(objetoWS.getCodigoRespuesta().equals("0000"))
+        {
+            mensajeEstado = "OK";
+        }
+        else
+        {
+            mensajeEstado = "Error";
+        }
+              
+        datosReporte.setCodigoRespuesta(mensajeEstado);
+        datosReporte.setMensajeRespuesta(objetoWS.getMensajeRespuesta());
+        datosReporte.setNumAutorizacion(objetoWS.getNumAutorizacion());
+        datosReporte.setNumeroSecuencia(objetoWS.getNumeroSecuencia());
+        
+        agregarCursoReporte(datasource, datosReporte, cursoCIA, comparendosCursoCIA);
+        
+        numConsecutivo ++;
+ 
         columna.clear();
+        
     }
-    // cerramos el libro excel
+    generarReporte(datasource);
+    // cerramos el libro Excel
+    menu.jLabel_cantRegistros.setText(num_Secuencia.cantidadRegistros()); // Setear cantidad de registros actual
     workbook.close();
+    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         
     }
     
     @SuppressWarnings("empty-statement")
     public void captDatosExcelXlsx(String rutaArchivo) throws IOException{
     
+    this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+    
     FechaHora fecha = new FechaHora();
     DataSource datasource = new DataSource();
-
+    
     FileInputStream file = new FileInputStream(new File(rutaArchivo));
     // Crear el objeto que tendra el libro de Excel
     XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -310,7 +399,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
      */
     XSSFSheet sheet = workbook.getSheetAt(0);
     
-    System.out.println(sheet.getLastRowNum()); // numero de filas
     int numConsecutivo = num_Secuencia.verificarTxt(sheet.getLastRowNum()); // Calcular el numero consecutivo
     
     Iterator<Row> rowIterator = sheet.iterator();
@@ -325,7 +413,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         if(row.getRowNum()==0){
             continue; //just skip the rows if row number is 0 or 1
         }
-
         while (cellIterator.hasNext()){
             celda = cellIterator.next();
             // Dependiendo del formato de la celda el valor se debe mostrar como String, Fecha, boolean, entero...
@@ -438,8 +525,10 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
 
     }
     generarReporte(datasource);
-    // cerramos el libro excel
+    // cerramos el libro Excel
+    menu.jLabel_cantRegistros.setText(num_Secuencia.cantidadRegistros()); // Setear cantidad de registros actual
     workbook.close();
+    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
     
     //////////// INSTANCIA DEL REPORTE /////////////////
@@ -477,8 +566,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
 
                     if(guardar !=null)
                     {
-                     /*guardamos el archivo y le damos el formato directamente,
-                      * si queremos que se guarde en formato doc lo definimos como .doc*/
                         JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
                         JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
                         jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
@@ -499,10 +586,10 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
                     break;
                 }
                   
-            }
+            }  
             
+            dispose();
             
-
         }catch (JRException e){
             JOptionPane.showMessageDialog(null,"Error al cargar fichero jrml jasper report "+e.getMessage());
         }
@@ -522,4 +609,6 @@ public class Dialog_cargarExcel extends java.awt.Dialog {
         clientews.WSSimitCurso port = service.getWSSimitCursoPort();
         return port.wsSimitCursoCia(oe);
     }
+    
+    
 }

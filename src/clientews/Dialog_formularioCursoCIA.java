@@ -1,15 +1,36 @@
 package clientews;
 
-
+import clases.DataSource;
 import clases.FechaHora;
+import clases.GestionTXT;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
-import java.util.Calendar;
-import java.util.Date;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,7 +42,15 @@ import javax.swing.SpinnerDateModel;
  * @author JuanJo
  */
 public class Dialog_formularioCursoCIA extends java.awt.Dialog {
-String datos[];
+    
+    GestionTXT num_Secuencia = new GestionTXT();
+    // Organizamos el formato de fecha
+    DateFormat date = new SimpleDateFormat("yyyyMMdd");
+    private DatosSalidaCursoCia objetoWS;
+    String numeroReferenciaDescuento = "";
+    FechaHora fecha = new FechaHora();
+    DataSource datasource = new DataSource();
+    
     /**
      * Creates new form Dialog_formularioAgente
      */
@@ -31,6 +60,7 @@ String datos[];
     public Dialog_formularioCursoCIA(JFrame_Principal parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTextField_numReferenciaDesc.setEditable(false);
         FechaHora fecha = new FechaHora();
         fecha.fecha(jLabel_fecha_mostrar);
         fecha.hora(jLabel_hora_mostrar);
@@ -45,7 +75,7 @@ String datos[];
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_principal = new javax.swing.JPanel();
         jLabel_fecha = new javax.swing.JLabel();
         jLabel_hora = new javax.swing.JLabel();
         jLabel_hora_mostrar = new javax.swing.JLabel();
@@ -94,7 +124,7 @@ String datos[];
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_principal.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel_fecha.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel_fecha.setText("Fecha:");
@@ -214,22 +244,21 @@ String datos[];
                         .addComponent(jLabel_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser_fechaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel_horaCursoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSpinner_horaFinCurso))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_horaCursoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner_horaInicioCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField_idInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel_horaFinalInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner_horaFinCurso)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -295,6 +324,11 @@ String datos[];
         jLabel_fechaCurso1.setText("Fecha del comparendo:");
         jLabel_fechaCurso1.setToolTipText("");
 
+        jTextField_numCertificado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_numCertificadoFocusLost(evt);
+            }
+        });
         jTextField_numCertificado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField_numCertificadoKeyTyped(evt);
@@ -424,39 +458,39 @@ String datos[];
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_principalLayout = new javax.swing.GroupLayout(jPanel_principal);
+        jPanel_principal.setLayout(jPanel_principalLayout);
+        jPanel_principalLayout.setHorizontalGroup(
+            jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_principalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_principalLayout.createSequentialGroup()
+                        .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_principalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel_principalLayout.createSequentialGroup()
                                 .addComponent(jLabel_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(jLabel_fecha_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel_principalLayout.createSequentialGroup()
                                 .addComponent(jLabel_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(jLabel_hora_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel_principalLayout.createSequentialGroup()
+                .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_principalLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel_principalLayout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jButton_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
@@ -465,18 +499,18 @@ String datos[];
                         .addComponent(jButton_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel_principalLayout.setVerticalGroup(
+            jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_principalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_fecha)
                     .addComponent(jLabel_fecha_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_hora)
                     .addComponent(jLabel_hora_mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_idFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_idFuncionario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -486,7 +520,7 @@ String datos[];
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_aceptar)
                     .addComponent(jButton_cancelar)
                     .addComponent(jButton_limpiar))
@@ -497,12 +531,14 @@ String datos[];
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel_principal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel_principal.getAccessibleContext().setAccessibleName("");
 
         setSize(new java.awt.Dimension(603, 723));
         setLocationRelativeTo(null);
@@ -516,130 +552,158 @@ String datos[];
     }//GEN-LAST:event_closeDialog
 
     private void jButton_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_aceptarActionPerformed
-        // TODO add your handling code here:
-        
-        FechaHora fecha = new FechaHora();
-        
-        //   INICIO conexion al WS
-        
-        ObjectFactory instancia = new ObjectFactory(); // Instancia para crear objetos en general
-        
-        DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
-        
-        cursoCIA.setCiudadCia("11001000"); // Fijo
-        cursoCIA.setCodigoCia("9002852265"); // Fijo
-        cursoCIA.setCodigoCurso("1"); // Fijo
-        cursoCIA.setCodigoSedeCia("76834000"); // Fijo
-        cursoCIA.setCodigoTransaccion("000003"); // Fijo
-        cursoCIA.setDireccionAdquiriente("127.0.0.1");
-        cursoCIA.setFechaRealizacionCurso("20150914");
-        cursoCIA.setFechaTransaccion(fecha.fechaActual());
-        cursoCIA.setFuncionarioRegistra("78456159");
-        cursoCIA.setHoraFinCurso("1500");
-        cursoCIA.setHoraInicioCurso("1300");
-        cursoCIA.setHoraTransaccion(fecha.horaActual());
-        cursoCIA.setIdentificacionInfractor("11348162");
-        cursoCIA.setIdentificacionInstructor("66879056");
-        cursoCIA.setNumeroSecuencia("10");
-        cursoCIA.setTipoIdentificacion("1");
-        
-        CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
-        
-        comparendosCursoCIA.setFechaComparendo("20150914");
-        comparendosCursoCIA.setNumeroCertificado("1478");
-        comparendosCursoCIA.setNumeroComparendo("999999911445256");
-        comparendosCursoCIA.setNumeroResolucion("1548");
-        comparendosCursoCIA.setOrganismoTransito("25899000");
-        comparendosCursoCIA.setReferenciaDescuento("150911001478" + luhnCheck("150911001478"));
-        comparendosCursoCIA.setTipoComparendo("PONAL");
-        
-        cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
-        
-         
-        System.out.println (luhnCheck("7992739871"));
-        //System.out.println (cursoCIA.getComparendos().get(0));
-        
-        /*System.out.println ("Cod respuesta:  "+wsSimitCursoCia(cursoCIA).getCodigoRespuesta());
-        System.out.println ("Fecha transaccion:  "+wsSimitCursoCia(cursoCIA).getFechaTransaccion());
-        System.out.println ("Hora transaccion:  "+wsSimitCursoCia(cursoCIA).getHoraTransaccion());
-        System.out.println ("Num Autorizacion:  "+wsSimitCursoCia(cursoCIA).getNumAutorizacion());
-        System.out.println ("Mensaje respuesta del WS:  "+wsSimitCursoCia(cursoCIA).getMensajeRespuesta()); // METODO QUE ENVIA LA INFORMACION AL WS!!!!!!!!!!!!!!!!!!!!
-        System.out.println ("Num secuencia:  "+wsSimitCursoCia(cursoCIA).getNumeroSecuencia());*/
-        
-        //   FIN conexion al WS
-        
-        
-        //   INICIO Codigo del formulario
-        
-        /*try 
-        {           
-        datos=new String [13];
-        datos[0]=(jTextField_codCurso.getText());
-        datos[1]=(jTextField_dirIP.getText());
-        datos[2]=(jTextField_codigoCIA.getText());
-        datos[3]=(jTextField_ciudadCIA.getText());
-        datos[4]=(jTextField_codigoSedeCIA.getText());
-        datos[5]=(jSpinner_horaInicioCurso.getValue().toString());
-        datos[6]=(jSpinner_horaFinalCurso.getValue().toString());
-        datos[7]=("000003"); // Codigo de transaccion
-        datos[8]=(jDateChooser_fechaCurso.getDate().toString());
-        datos[9]=(jTextField_idFuncionario.getText());
-        datos[10]=(jTextField_idInfractor.getText());
-        datos[11]=(jTextField_idInstructor.getText());
-        datos[12]=("192.0.0.1");
+        try {
+            // TODO add your handling code here:
+            
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-        if (datos[0].equals("") || datos[1].equals("") || datos[2].equals("") || datos[3].equals("") || datos[4].equals("") || datos[5].equals("") || datos[6].equals("") 
-                || datos[7].equals("") || datos[8].equals("") || datos[9].equals("") || datos[10].equals("") || datos[11].equals("") || datos[12].equals(""))
-        {
-            JOptionPane.showMessageDialog(null,"Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-            System.out.println ("Cod Curso "+datos[0]);
-            System.out.println ("IP "+datos[1]);
-            System.out.println ("Cod CIA "+datos[2]);
-            System.out.println ("Cod Ciudad "+datos[3]);
-            System.out.println ("Cod Sede CIA "+datos[4]);
-            System.out.println ("Hora Inicio "+datos[5]);
-            System.out.println ("Hora Final "+datos[6]);
-            System.out.println ("Cod Transaccion "+datos[7]);
-            System.out.println ("Fecha Curso "+datos[8]);
-            System.out.println ("ID funcionario "+datos[9]);
-            System.out.println ("ID infractor "+datos[10]);
-            System.out.println ("ID instructor "+datos[11]);
-            System.out.println ("Cod Curso "+datos[12]);
-            /*
-            Long.parseLong(jTextField_dni.getText());
-            Long.parseLong(jTextField_telefono.getText());
-            
-            Agente registrar = new Agente(datos);
-            
-            try 
+            if (jTextField_idFuncionario.getText().isEmpty())
             {
-                if (registrar.registrarAgente()==true)
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de identificación del funcionario CIA", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jTextField_idInfractor.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de identificación del infractor", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if(jDateChooser_fechaCurso.getDate() == null)
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de realización del curso", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jSpinner_horaInicioCurso.getValue().toString().substring(11,16).replace(":", "").equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de inicio del curso", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jSpinner_horaFinCurso.getValue().toString().substring(11,16).replace(":", "").equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de finalización del curso", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jTextField_idInstructor.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de identificación del instructor", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jDateChooser_fechaComparendo.getDate() == null)
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del comparendo", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jTextField_numCertificado.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar número de certificado", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jTextField_numComparendo.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar número del comparendo", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else if (jTextField_numOrganismo.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Debe ingresar número del organismo de tránsito", "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                //   INICIO conexion al WS
+                
+                ObjectFactory instancia = new ObjectFactory(); // Instancia para crear objetos en general
+            
+                DatosEntradaCursoCia cursoCIA =  instancia.createDatosEntradaCursoCia(); // Instancia de la entrada de los Datos del curso CIA
+
+                int numConsecutivo = num_Secuencia.verificarTxt(1); // Calcular el numero consecutivo
+                String nuevaFecha = fecha.fechaActual().substring(2,8);
+
+                cursoCIA.setCiudadCia("11001000"); // Fijo
+                cursoCIA.setCodigoCia("9002852265"); // Fijo
+                cursoCIA.setCodigoCurso("000001"); // Fijo
+                cursoCIA.setCodigoSedeCia("76834000"); // Fijo
+                cursoCIA.setCodigoTransaccion("000003"); // Fijo
+                cursoCIA.setDireccionAdquiriente(num_Secuencia.asignarIP());
+                cursoCIA.setFechaRealizacionCurso(date.format(jDateChooser_fechaCurso.getDate()));
+                cursoCIA.setFechaTransaccion(fecha.fechaActual());
+                cursoCIA.setFuncionarioRegistra(jTextField_idFuncionario.getText());
+                cursoCIA.setHoraFinCurso(jSpinner_horaFinCurso.getValue().toString().substring(11,16).replace(":", ""));
+                cursoCIA.setHoraInicioCurso(jSpinner_horaInicioCurso.getValue().toString().substring(11,16).replace(":", ""));
+                cursoCIA.setHoraTransaccion(fecha.horaActual());
+                cursoCIA.setIdentificacionInfractor(jTextField_idInfractor.getText());
+                cursoCIA.setIdentificacionInstructor(jTextField_idInstructor.getText());
+                cursoCIA.setNumeroSecuencia(nuevaFecha + Integer.toString(numConsecutivo));
+                cursoCIA.setTipoIdentificacion(Integer.toString(jComboBox_tipoID.getSelectedIndex()+1));
+
+                CursoComparendo comparendosCursoCIA =  instancia.createCursoComparendo(); // Instancia de la entrada de los comparendos del Curso CIA
+
+                /////////////// PONER CEROS A LA IZQUIERDA EN NUMERO REFERENCIA DESCUENTO (NUM_CERTIFICADO)///////////////////////
+
+                numeroReferenciaDescuento = nuevaFecha + jTextField_numCertificado.getText();
+                numeroReferenciaDescuento += luhnCheck(numeroReferenciaDescuento);
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                comparendosCursoCIA.setFechaComparendo(date.format(jDateChooser_fechaComparendo.getDate()));
+                comparendosCursoCIA.setNumeroCertificado(jTextField_numCertificado.getText());
+                comparendosCursoCIA.setNumeroComparendo(jTextField_numComparendo.getText());
+                comparendosCursoCIA.setNumeroResolucion(jTextField_numResolucion.getText());
+                comparendosCursoCIA.setOrganismoTransito(jTextField_numOrganismo.getText());
+                comparendosCursoCIA.setReferenciaDescuento(numeroReferenciaDescuento);
+                comparendosCursoCIA.setTipoComparendo(jComboBox_tipoComparendo.getSelectedItem().toString());
+
+                cursoCIA.getComparendos().add(comparendosCursoCIA); // Agregar los comparendos al ArrayList
+
+                DatosSalidaCursoCia datosReporte = instancia.createDatosSalidaCursoCia();
+
+                objetoWS = wsSimitCursoCia(cursoCIA);
+
+                String mensajeEstado = "";
+
+                if(objetoWS.getCodigoRespuesta().equals("0000"))
                 {
-                    JOptionPane.showMessageDialog(null,"¡El registro ha sido realizado satisfactoriamente!", "Registrado", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                    mensajeEstado = "OK";
+                }
+                else
+                {
+                    mensajeEstado = "Error";
                 }
 
-            }       
-            catch (        InstantiationException | IllegalAccessException | SQLException ex) 
-            {
-                //System.out.println("entro a existe hhhhhhhh");
-                Logger.getLogger(Dialog_formularioAgente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-                
-        }
-                  
-        }
+                datosReporte.setCodigoRespuesta(mensajeEstado);
+                datosReporte.setMensajeRespuesta(objetoWS.getMensajeRespuesta());
+                datosReporte.setNumAutorizacion(objetoWS.getNumAutorizacion());
+                datosReporte.setNumeroSecuencia(objetoWS.getNumeroSecuencia());
 
-        catch (NumberFormatException s)
-        {
-            JOptionPane.showMessageDialog(null,"Los campos DNI y Telefono deben ser numeros y no debe\ncontener espacios ni puntos", "Error", JOptionPane.ERROR_MESSAGE);
+                agregarCursoReporte(datasource, datosReporte, cursoCIA, comparendosCursoCIA);
+                generarReporte(datasource);
+                
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                
+                //   FIN conexion al WS
+            }
+
+            //   INICIO Codigo del formulario
+            
+                /*System.out.println ("Cod Curso "+cursoCIA.codigoCurso);
+                System.out.println ("IP "+cursoCIA.direccionAdquiriente);
+                System.out.println ("Cod CIA "+cursoCIA.codigoCia);
+                System.out.println ("Cod Ciudad "+cursoCIA.ciudadCia);
+                System.out.println ("Cod Sede CIA "+cursoCIA.codigoSedeCia);
+                System.out.println ("Hora Inicio "+cursoCIA.horaInicioCurso);
+                System.out.println ("Hora Final "+cursoCIA.horaFinCurso);
+                System.out.println ("Cod Transaccion "+cursoCIA.codigoTransaccion);
+                System.out.println ("Fecha Curso "+cursoCIA.fechaRealizacionCurso);
+                System.out.println ("ID funcionario "+cursoCIA.funcionarioRegistra);
+                System.out.println ("ID infractor "+cursoCIA.identificacionInfractor);
+                System.out.println ("ID instructor "+cursoCIA.identificacionInstructor);
+                System.out.println ("Num Secuencia "+cursoCIA.numeroSecuencia);
+                System.out.println ("Tipo ID "+cursoCIA.tipoIdentificacion);
+                System.out.println ("Fecha comparendo  "+comparendosCursoCIA.fechaComparendo);
+                System.out.println ("Num certificado  "+comparendosCursoCIA.numeroCertificado);
+                System.out.println ("Num comparendo  "+comparendosCursoCIA.numeroComparendo);
+                System.out.println ("Num resolucion  "+comparendosCursoCIA.numeroResolucion);
+                System.out.println ("Num organismo trans.  "+comparendosCursoCIA.organismoTransito);
+                System.out.println ("Num ref. desc.  "+comparendosCursoCIA.referenciaDescuento);
+                System.out.println ("tipo comparendo  "+comparendosCursoCIA.tipoComparendo);*/
+            
+            //   FIN Codigo del formulario
+                
+            menu.jLabel_cantRegistros.setText(num_Secuencia.cantidadRegistros()); // Setear cantidad de registros actual
+            
         }
-        */
-        //   FIN Codigo del formulario
+         catch (IOException ex) {
+            Logger.getLogger(Dialog_formularioCursoCIA.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_aceptarActionPerformed
 
     private void jButton_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_limpiarActionPerformed
@@ -689,8 +753,16 @@ String datos[];
 
     private void jTextField_numOrganismoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_numOrganismoFocusLost
         // TODO add your handling code here:
-        completarCampo(jTextField_numOrganismo,evt,8);
+        completarCampo(jTextField_numOrganismo,evt,8,"der");
     }//GEN-LAST:event_jTextField_numOrganismoFocusLost
+
+    private void jTextField_numCertificadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_numCertificadoFocusLost
+        // TODO add your handling code here:
+        completarCampo(jTextField_numCertificado,evt,6,"izq");
+        numeroReferenciaDescuento = fecha.fechaActual().substring(2,8) + jTextField_numCertificado.getText();
+        numeroReferenciaDescuento += luhnCheck(numeroReferenciaDescuento);
+        jTextField_numReferenciaDesc.setText(numeroReferenciaDescuento);
+    }//GEN-LAST:event_jTextField_numCertificadoFocusLost
         
     public void limpiarRegistros()
     {
@@ -705,6 +777,70 @@ String datos[];
     /**
      * @param args the command line arguments
      */
+    
+     //////////// INSTANCIA DEL REPORTE /////////////////
+    
+    public void agregarCursoReporte(DataSource datasource, DatosSalidaCursoCia cursoCIA, DatosEntradaCursoCia otrosDatosCursoCIA, CursoComparendo otrosDatosCursoComparendo)
+    {
+        datasource.addCursoSalida(cursoCIA, otrosDatosCursoCIA, otrosDatosCursoComparendo);
+    }
+    
+    public void generarReporte(DataSource datasource) throws IOException
+    {
+        InputStream inputStream = null;
+        JasperPrint jasperPrint= null;
+       
+       try {
+            inputStream = new FileInputStream ("src/reporte/estadoRegistroCursosCIA.jrxml");
+        } catch (FileNotFoundException ex) {
+           JOptionPane.showMessageDialog(null,"Error al leer el fichero de carga jasper report "+ex.getMessage());
+        }
+        
+        try{
+            FechaHora hora = new FechaHora();
+            JFileChooser file=new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo PDF", "pdf");
+            file.setFileFilter(filtro);
+            file.setDialogTitle("Guardar reporte");
+            file.setSelectedFile(new File("reporteCursoCIA" + hora.fechaActual() + hora.horaActual()));
+            int opcion = file.showSaveDialog(this);
+            
+            switch (opcion) 
+            {
+                case JFileChooser.APPROVE_OPTION:
+                {
+                    File guardar =file.getSelectedFile();
+
+                    if(guardar !=null)
+                    {
+                        JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+                        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                        jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource);
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, guardar + ".pdf");
+                        Desktop.getDesktop().open(new File(guardar + ".pdf"));
+                        //JOptionPane.showMessageDialog(null, "El archivo se ha guardado exitosamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+                      }
+                      break;
+                }
+                case JFileChooser.CANCEL_OPTION:
+                {
+                    this.dispose();
+                    break;
+                }  
+                case JFileChooser.ERROR_OPTION:
+                {
+                    JOptionPane.showMessageDialog(null, "Error en el guardado de archivo", "Error",JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+                  
+            }  
+            
+            dispose();
+            
+        }catch (JRException e){
+            JOptionPane.showMessageDialog(null,"Error al cargar fichero jrml jasper report "+e.getMessage());
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButton_aceptar;
@@ -732,10 +868,10 @@ String datos[];
     private javax.swing.JLabel jLabel_numReferenciaDesc;
     private javax.swing.JLabel jLabel_numResolucion;
     private javax.swing.JLabel jLabel_tipoComparendo;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel_principal;
     private javax.swing.JSpinner jSpinner_horaFinCurso;
     private javax.swing.JSpinner jSpinner_horaInicioCurso;
     private javax.swing.JTextField jTextField_idFuncionario;
@@ -801,18 +937,32 @@ String datos[];
         }
         
     }
-    public void completarCampo(JTextField txt,FocusEvent evt,int pValor)
+    public void completarCampo(JTextField txt,FocusEvent evt,int pValor,String posicion)
     {
         String digito=null;
-        if (txt.getText().length()>=1 && txt.getText().length()<= pValor ) {
+        if(posicion.equals("der"))
+        {
+            if (txt.getText().length()>=1 && txt.getText().length()<= pValor ) {
             int result=txt.getText().length();
             int result2= pValor-result;
             for (int i = 1; i <= result2; i++) {
                 digito = txt.getText()+"0";
                 txt.setText(digito);
             }
+            }
         }
-        
+        else
+        {
+            if (txt.getText().length()>=1 && txt.getText().length()<= pValor ) {
+            int result=txt.getText().length();
+            int result2= pValor-result;
+            for (int i = 1; i <= result2; i++) {
+                digito = "0"+txt.getText();
+                txt.setText(digito);
+            }
+            }
+        }
+
     }
     
 }

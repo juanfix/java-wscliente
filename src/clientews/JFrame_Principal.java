@@ -303,7 +303,7 @@ public class JFrame_Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_abrirFormulario;
     private javax.swing.JButton jButton_cargarExcel;
-    private javax.swing.JLabel jLabel_cantRegistros;
+    public javax.swing.JLabel jLabel_cantRegistros;
     private javax.swing.JLabel jLabel_cantRegistrosMax;
     private javax.swing.JLabel jLabel_logo;
     private javax.swing.JLabel jLabel_mensajeInicio;
